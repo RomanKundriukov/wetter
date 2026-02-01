@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="wetter.Dashboard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:wetter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="wetter">
+
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop/>
+    </Window.SystemBackdrop>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Title Bar -->
+        <TitleBar x:Name="SimpleTitleBar"
+          Title="Planer">
+            <TitleBar.IconSource>
+                <FontIconSource Glyph="&#xF4AA;"/>
+            </TitleBar.IconSource>
+        </TitleBar>
+
+        <!--Navigation View-->
+        <NavigationView x:Name="hauptNavigation"
+                Grid.Row="1"
+                SelectionChanged="NavigationView_SelectionChanged"
+                PaneDisplayMode="LeftCompact"
+                IsBackButtonVisible="Collapsed">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="Tag" Content="Wetter" Tag="WetterView" />
+            </NavigationView.MenuItems>
+            <Frame x:Name="contentFrame"/>
+        </NavigationView>
+    </Grid>
+</Window>

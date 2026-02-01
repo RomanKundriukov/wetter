@@ -10,7 +10,7 @@
     xmlns:vm="using:wetter.ViewModels">
 
     <Page.DataContext>
-        <vm:WetterViewModel />
+        <vm:WetterViewModel x:Name="vm"/>
     </Page.DataContext>
 
     <Grid>

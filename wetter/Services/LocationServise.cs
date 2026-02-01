@@ -1,35 +1,46 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 
 namespace wetter.Services
 {
-    internal class LocationServise
+    internal class LocationServise : ILocationService
     {
-        private static LocationServise? _instance;
+        public double Latitude { get; private set; }
+        public double Longitude { get; private set; }
+
+        private static readonly LocationServise? _instance = new LocationServise();
         private LocationServise() { }
-        internal static LocationServise GetInstance()
+        public static LocationServise GetInstance() => _instance!;
+        public async Task UpdateLocationAsync(CancellationToken ct = default)
         {
-            if (_instance is null)
+            try
             {
-                _instance = new LocationServise();
+                Geolocator geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
+                Geoposition position = await geolocator.GetGeopositionAsync();
+
+                Latitude = position.Coordinate.Point.Position.Latitude;
+                Longitude = position.Coordinate.Point.Position.Longitude;
+
             }
-            return _instance;
+            catch (Exception ex)
+            {
+
+                ContentDialog noWifiDialog = new ContentDialog
+                {
+                    Title = "Location",
+                    Content = ex,
+                    CloseButtonText = "OK"
+                };
+
+                ContentDialogResult result = await noWifiDialog.ShowAsync();
+            }
         }
 
-        internal double Latitude { get; set; }
-        internal double Longitude { get; set; }
-
-        internal async Task GetLocation()
-        {
-            Geolocator geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
-            Geoposition position =  await geolocator.GetGeopositionAsync();
-
-            Latitude = position.Coordinate.Point.Position.Latitude;
-            Longitude = position.Coordinate.Point.Position.Longitude;
-        }
     }
 }

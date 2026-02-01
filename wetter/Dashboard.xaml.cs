@@ -31,8 +31,17 @@ namespace wetter
             ExtendsContentIntoTitleBar = true;
             // Replace system title bar with the WinUI TitleBar control. 
             SetTitleBar(SimpleTitleBar);
+
+            //Default Navigate
+            contentFrame.Navigate(typeof(WetterView));
         }
 
+        /// <summary>
+        /// Handles the SelectionChanged event of the NavigationView to navigate to the selected page or the settings
+        /// view.
+        /// </summary>
+        /// <param name="sender">The NavigationView control that raised the event.</param>
+        /// <param name="args">The event data that contains information about the selected item.</param>
         private void NavigationView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
             if (args.IsSettingsSelected)

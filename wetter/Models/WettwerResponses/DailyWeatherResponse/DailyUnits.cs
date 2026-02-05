@@ -10,39 +10,39 @@ namespace wetter.Models.WettwerResponses.DailyWeatherResponse
     public class DailyUnits
     {
         [JsonPropertyName("time")]
-        public string Time { get; set; } = string.Empty;
+        public string? Time { get; set; }
 
         [JsonPropertyName("weather_code")]
-        public string WeatherCode { get; set; } = string.Empty;
+        public string? WeatherCode { get; set; }
 
         [JsonPropertyName("temperature_2m_max")]
-        public string TemperatureMax { get; set; } = string.Empty;
+        public string? TemperatureMax { get; set; }
 
         [JsonPropertyName("temperature_2m_min")]
-        public string TemperatureMin { get; set; } = string.Empty;
+        public string? TemperatureMin { get; set; }
 
         [JsonPropertyName("precipitation_sum")]
-        public string PrecipitationSum { get; set; } = string.Empty;
+        public string? PrecipitationSum { get; set; }
 
         [JsonPropertyName("precipitation_probability_max")]
-        public string PrecipitationProbabilityMax { get; set; } = string.Empty;
+        public string? PrecipitationProbabilityMax { get; set; }
 
         [JsonPropertyName("rain_sum")]
-        public string RainSum { get; set; } = string.Empty;
+        public string? RainSum { get; set; }
 
         [JsonPropertyName("snowfall_sum")]
-        public string SnowfallSum { get; set; } = string.Empty;
+        public string? SnowfallSum { get; set; }
 
         [JsonPropertyName("sunrise")]
-        public string Sunrise { get; set; } = string.Empty;
+        public string? Sunrise { get; set; }
 
         [JsonPropertyName("sunset")]
-        public string Sunset { get; set; } = string.Empty;
+        public string? Sunset { get; set; }
 
         [JsonPropertyName("wind_speed_10m_max")]
-        public string WindSpeed { get; set; } = string.Empty;
+        public string? WindSpeed { get; set; }
 
         [JsonPropertyName("wind_gusts_10m_max")]
-        public string WindGuest { get; set; } = string.Empty;
+        public string? WindGuest { get; set; }
     }
 }

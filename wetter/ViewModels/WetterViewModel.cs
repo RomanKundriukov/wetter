@@ -30,8 +30,8 @@ namespace wetter.ViewModels
             await _locationService.UpdateLocationAsync();
 
             // Jetzt sind Latitude/Longitude gesetzt
-            await _weatherForecastService.GetCurrentWeather(
-                1,
+            await _weatherForecastService.GetDailyWeather(
+                7,
                 _locationService.Latitude,
                 _locationService.Longitude,
                 "Europe/Berlin");

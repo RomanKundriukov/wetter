@@ -10,7 +10,7 @@ namespace wetter.Models.WettwerResponses.DailyWeatherResponse
     public class DailyWeather
     {
         [JsonPropertyName("time")]
-        public List<string>? Time { get; set; }
+        public List<DateTime>? Time { get; set; } 
 
         [JsonPropertyName("weather_code")]
         public List<int>? WeatherCode { get; set; }

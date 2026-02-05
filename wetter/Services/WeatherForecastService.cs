@@ -83,7 +83,43 @@ namespace wetter.Services
  
         }
 
-        internal DailyWeatherModel GetDailyWeather(int days) { return new DailyWeatherModel(); }
+        internal async Task<DailyWeatherModel> GetDailyWeather(int days, double latitude, double longitude, string timezone) 
+        {
+            try
+            {
+                string daily =
+                    "weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,rain_sum," +
+                    "snowfall_sum,sunrise,sunset,wind_speed_10m_max,wind_gusts_10m_max";
+
+                var url =
+                    $"?latitude={latitude.ToString(CultureInfo.InvariantCulture)}" +
+                    $"&longitude={longitude.ToString(CultureInfo.InvariantCulture)}" +
+                    $"&daily={Uri.EscapeDataString(daily)}" +
+                    $"&timezone={Uri.EscapeDataString(timezone)}" +
+                    $"&forecast_days={days}" +
+                    $"&wind_speed_unit=ms";
+
+                var response = await _httpClient.GetAsync(url);
+
+                response.EnsureSuccessStatusCode();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var model = await response.Content.ReadFromJsonAsync<DailyWeatherModel>()
+                        .ConfigureAwait(false);
+                    return model ?? new DailyWeatherModel();
+                }
+                else
+                {
+                    throw new InvalidOperationException(response?.RequestMessage?.ToString());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         internal HourlyWeatherModel GetHourlyWeather(int days) { return new HourlyWeatherModel(); }
     }

@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 
 namespace wetter.Models.WettwerResponses.DailyWeatherResponse
 {
+    /// <summary>
+    /// Represents the units of measurement for daily weather data fields in a forecast response.
+    /// </summary>
+    /// <remarks>This class is typically used to describe the units associated with each daily weather
+    /// property, such as temperature, precipitation, and wind speed. Each property corresponds to a specific weather
+    /// metric and indicates the unit in which its values are reported. The properties are commonly populated when
+    /// deserializing weather API responses that include unit metadata for daily data fields.</remarks>
     public class DailyUnits
     {
         [JsonPropertyName("time")]

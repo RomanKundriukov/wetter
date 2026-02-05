@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace wetter.Models.WettwerResponses.HourlyWeatherResponse
 {
+    /// <summary>
+    /// Represents the units of measurement for hourly weather data fields as provided by a weather API response.
+    /// </summary>
+    /// <remarks>This class is typically used to describe the units associated with each hourly weather
+    /// parameter, such as temperature, precipitation, wind speed, and visibility. Each property corresponds to a
+    /// specific weather data field and indicates the unit in which that field's values are reported (for example,
+    /// degrees Celsius, millimeters, or meters per second). The properties are nullable to accommodate cases where
+    /// certain units may not be specified in the API response.</remarks>
     public class HourlyUnits
     {
         [JsonPropertyName("time")]

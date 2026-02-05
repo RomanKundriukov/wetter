@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 
-namespace wetter.Services
+namespace wetter.Services.LocationService
 {
     internal class LocationServise : ILocationService
     {
@@ -48,7 +48,7 @@ namespace wetter.Services
         /// already provided.</remarks>
         /// <param name="ct">A cancellation token that can be used to cancel the location update operation.</param>
         /// <returns>A task that represents the asynchronous update operation.</returns>
-        public async Task UpdateLocationAsync(CancellationToken ct = default)
+        public async Task UpdateLocationAsync()
         {
             try
             {

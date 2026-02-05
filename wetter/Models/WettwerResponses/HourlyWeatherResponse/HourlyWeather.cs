@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace wetter.Models.WettwerResponses.HourlyWeatherResponse
 {
+    /// <summary>
+    /// Represents a collection of hourly weather data, including temperature, precipitation, wind, and other
+    /// atmospheric conditions for each hour.
+    /// </summary>
+    /// <remarks>Each property contains a list of values corresponding to hourly measurements. The lists are
+    /// typically aligned by index, where each index represents the same hour across all properties. This class is
+    /// commonly used to deserialize weather forecast data from JSON sources. All properties are nullable; if a property
+    /// is null, the corresponding data is unavailable for that hour.</remarks>
     public class HourlyWeather
     {
         [JsonPropertyName("time")]

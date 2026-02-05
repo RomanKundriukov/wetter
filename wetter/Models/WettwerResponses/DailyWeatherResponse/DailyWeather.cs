@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace wetter.Models.WettwerResponses.DailyWeatherResponse
 {
+    /// <summary>
+    /// Represents daily weather data, including temperature, precipitation, wind, and astronomical information for a
+    /// series of dates.
+    /// </summary>
+    /// <remarks>This class is typically used to deserialize daily weather forecasts or historical weather
+    /// data from JSON sources. Each property contains a list of values corresponding to each day in the forecast or
+    /// dataset. The lists are expected to be of equal length, where each index represents the same day across all
+    /// properties. Properties may be null if the data source does not provide values for a particular field.</remarks>
     public class DailyWeather
     {
         [JsonPropertyName("time")]

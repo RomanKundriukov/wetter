@@ -16,13 +16,27 @@ using Uri = System.Uri;
 
 namespace wetter.Services
 {
-    internal class WeatherForecastService
+    /// <summary>
+    /// Provides methods for retrieving current, daily, and hourly weather forecast data from the Open-Meteo API for a
+    /// specified location and time zone.
+    /// </summary>
+    /// <remarks>This service is intended for internal use within the application and exposes a singleton
+    /// instance for consistent access. All weather data retrieval methods are asynchronous and return strongly typed
+    /// models representing the forecast information. The service is not thread-safe for modifications, but concurrent
+    /// read operations are supported. Network errors or invalid input may result in exceptions; callers should handle
+    /// these cases appropriately.</remarks>
+    internal class WeatherForecastService : IWeatherForecasrService
     {
+        /// <summary>
+        /// Http Client
+        /// </summary>
         private readonly HttpClient _httpClient;
+       
         /// <summary>
         /// Represents the singleton instance of the WeatherForecastService.
         /// </summary>
         private static readonly WeatherForecastService? _instance = new WeatherForecastService(new HttpClient());
+
         /// <summary>
         /// Initializes a new instance of the WeatherForecastService class.
         /// </summary>
@@ -44,7 +58,18 @@ namespace wetter.Services
         /// <returns>The single, shared instance of the WeatherForecastService.</returns>
         internal static WeatherForecastService GetInstance() => _instance!;
 
-        internal async Task<CurrentWeatherModel> GetCurrentWeather(int days, double latitude, double longitude, string timezone)
+        /// <summary>
+        /// Retrieves the current weather data for the specified location and time zone over a given number of forecast
+        /// days.
+        /// </summary>
+        /// <param name="days">The number of forecast days for which to retrieve weather data. Must be a positive integer.</param>
+        /// <param name="latitude">The latitude of the location for which to retrieve weather data, in decimal degrees.</param>
+        /// <param name="longitude">The longitude of the location for which to retrieve weather data, in decimal degrees.</param>
+        /// <param name="timezone">The time zone identifier used to format the weather data. Cannot be null or empty.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a <see
+        /// cref="CurrentWeatherModel"/> with the current weather information for the specified location and time zone.</returns>
+        /// <exception cref="Exception">Thrown if an error occurs while retrieving or processing the weather data.</exception>
+        public async Task<CurrentWeatherModel> GetCurrentWeather(int days, double latitude, double longitude, string timezone)
         {
             try
             {
@@ -83,7 +108,18 @@ namespace wetter.Services
  
         }
 
-        internal async Task<DailyWeatherModel> GetDailyWeather(int days, double latitude, double longitude, string timezone) 
+        /// <summary>
+        /// Retrieves the dauly weather data for the specified location and time zone over a given number of forecast
+        /// days.
+        /// </summary>
+        /// <param name="days"></param>
+        /// <param name="latitude"></param>
+        /// <param name="longitude"></param>
+        /// <param name="timezone"></param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a <see
+        /// cref="DailyWeatherModel"/> with the current weather information for the specified location and time zone.</returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<DailyWeatherModel> GetDailyWeather(int days, double latitude, double longitude, string timezone) 
         {
             try
             {
@@ -121,7 +157,18 @@ namespace wetter.Services
             }
         }
 
-        internal async Task<HourlyWeatherModel> GetHourlyWeather(int days, double latitude, double longitude, string timezone) 
+        /// <summary>
+        /// Retrieves the hourly weather data for the specified location and time zone over a given number of forecast
+        /// days.
+        /// </summary>
+        /// <param name="days"></param>
+        /// <param name="latitude"></param>
+        /// <param name="longitude"></param>
+        /// <param name="timezone"></param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a <see
+        /// cref="HourlyWeatherModel"/> with the current weather information for the specified location and time zone.</returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<HourlyWeatherModel> GetHourlyWeather(int days, double latitude, double longitude, string timezone) 
         {
             try
             {

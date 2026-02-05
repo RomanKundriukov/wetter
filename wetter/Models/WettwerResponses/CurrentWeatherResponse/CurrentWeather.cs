@@ -7,6 +7,15 @@ using System.Threading.Tasks;
 
 namespace wetter.Models.WettwerResponses.CurrentWeatherResponse
 {
+    /// <summary>
+    /// Represents the current weather conditions at a specific time and location, including temperature, humidity,
+    /// precipitation, wind, and other meteorological data.
+    /// </summary>
+    /// <remarks>This class is typically used to deserialize weather data from JSON sources, such as APIs
+    /// providing real-time weather information. All properties correspond to standard meteorological measurements and
+    /// are mapped to their respective JSON fields. Values are provided in commonly used units: temperature in degrees
+    /// Celsius, wind speed in meters per second, precipitation in millimeters, and humidity as a percentage. The
+    /// meaning of the weather code depends on the data provider's specification.</remarks>
     public class CurrentWeather
     {
         [JsonPropertyName("time")]

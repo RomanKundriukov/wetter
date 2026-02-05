@@ -6,17 +6,108 @@
     xmlns:local="using:wetter.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    xmlns:vm="using:wetter.ViewModels">
+    xmlns:media="using:CommunityToolkit.WinUI.Media"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    mc:Ignorable="d">
 
-    <Page.DataContext>
+    <!--<Page.DataContext>
         <vm:WetterViewModel x:Name="vm"/>
-    </Page.DataContext>
+    </Page.DataContext>-->
 
-    <Grid>
-        <TextBlock Text="Wetter View" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" 
-                   FontSize="24"/>
-    </Grid>
+    <Page.Resources>
+        <media:AttachedCardShadow x:Key="CommonShadow"
+                                  Offset="4" />
+
+        <Style BasedOn="{StaticResource DefaultButtonStyle}"
+               TargetType="Button">
+            <Setter Property="ui:Effects.Shadow" Value="{StaticResource CommonShadow}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+    </Page.Resources>
+
+    <StackPanel Spacing="10" Padding="10">
+
+        <!--Information-->
+        <Grid ColumnSpacing="15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--logo-->
+            <StackPanel Grid.Column="0"
+                        Padding="15"
+                        ui:Effects.Shadow="{StaticResource CommonShadow}">
+                <TextBlock
+                           Text="Wetter"
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           FontSize="24"/>
+
+            </StackPanel>
+
+            <!--Land Information-->
+            <StackPanel Grid.Column="1"
+                        Padding="15"
+                        ui:Effects.Shadow="{StaticResource CommonShadow}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Land"
+                               Grid.Row="0"
+                               Grid.Column="0"/>
+                    <TextBlock Text="{Binding Land}"
+                               Grid.Row="0"
+                               Grid.Column="1"/>
+                    
+                    <TextBlock Text="Bundesland"
+                               Grid.Row="1"
+                               Grid.Column="0"/>
+                    <TextBlock Text="{Binding Bundesland}"
+                               Grid.Row="1"
+                               Grid.Column="1"/>
+                    
+                    <TextBlock Text="Stadt"
+                               Grid.Row="2"
+                               Grid.Column="0"/>
+                    <TextBlock Text="{Binding Stadt}"
+                               Grid.Row="2"
+                               Grid.Column="1"/>
+                    
+                    <TextBlock Text="Straße"
+                               Grid.Row="3"
+                               Grid.Column="0"/>
+                    <TextBlock Text="{Binding Strasse}"
+                               Grid.Row="3"
+                               Grid.Column="1"/>
+
+
+                    <TextBlock Text="Haus Nummer"
+                               Grid.Row="4"/>
+                    <TextBlock Text="{Binding HausNummer}"
+                               Grid.Row="4"
+                               Grid.Column="1"/>
+                </Grid>
+
+            </StackPanel>
+            
+        </Grid>
+        
+        <!--Diagramms-->
+        <Grid>
+
+        </Grid>
+    </StackPanel>
 </Page>

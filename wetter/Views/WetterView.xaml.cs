@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using wetter.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -23,9 +24,16 @@ namespace wetter.Views
     /// </summary>
     public sealed partial class WetterView : Page
     {
+        internal WetterViewModel _vm { get; set; }
         public WetterView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+
+            _vm = new WetterViewModel();
+
+            _vm.Initialize();
+
+            DataContext = _vm;
         }
     }
 }

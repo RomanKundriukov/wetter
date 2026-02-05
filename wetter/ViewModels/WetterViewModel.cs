@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wetter.Services;
+using wetter.Services.LocationService;
 
 namespace wetter.ViewModels
 {
@@ -17,12 +18,7 @@ namespace wetter.ViewModels
             _weatherForecastService = WeatherForecastService.GetInstance();
 
 
-            _ = InitializeAsync(); // fire-and-forget, aber kontrolliert
-            //Task.WaitAny(_locationService.UpdateLocationAsync());
-
-            //WeatherForecastService weatherForecastService = WeatherForecastService.GetInstance();
-
-            //weatherForecastService.GetCurrentWeather(1, _locationService.Latitude, _locationService.Longitude, "Europe/Berlin");
+            _ = InitializeAsync(); 
         }
 
         private async Task InitializeAsync()
@@ -35,6 +31,8 @@ namespace wetter.ViewModels
                 _locationService.Latitude,
                 _locationService.Longitude,
                 "Europe/Berlin");
+
+            await _locationService.GetLocationInfo(_locationService.Latitude, _locationService.Longitude);
         }
     }
 }

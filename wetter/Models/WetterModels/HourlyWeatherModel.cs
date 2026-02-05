@@ -17,7 +17,7 @@ namespace wetter.Models.WetterModels
     /// as APIs that provide weather forecasts. It includes location details, time zone information, and structured
     /// hourly weather values. The properties correspond to fields commonly found in weather data feeds and are intended
     /// for use in applications that require detailed, time-based weather information.</remarks>
-    public class HourlyWeatherModel
+    internal class HourlyWeatherModel
     {
         [JsonPropertyName("latitude")]
         public double Latitude { get; set; }

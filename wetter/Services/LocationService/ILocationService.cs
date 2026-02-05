@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using wetter.Models.LocationsModel;
 
 namespace wetter.Services.LocationService
 {
@@ -13,6 +14,9 @@ namespace wetter.Services.LocationService
     /// </summary>
     internal interface ILocationService
     {
+        double Latitude { get; }
+        double Longitude { get; }
         Task UpdateLocationAsync();
+        Task<LocationModel> GetLocationInfo(double latitude, double longitude);
     }
 }

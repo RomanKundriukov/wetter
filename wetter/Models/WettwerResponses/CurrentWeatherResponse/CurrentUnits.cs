@@ -15,7 +15,7 @@ namespace wetter.Models.WettwerResponses.CurrentWeatherResponse
     /// specific weather metric and indicates the unit in which its values are reported (for example, degrees Celsius,
     /// millimeters, or kilometers per hour). The properties are mapped to their respective JSON fields for
     /// serialization and deserialization purposes.</remarks>
-    public class CurrentUnits
+    internal class CurrentUnits
     {
         [JsonPropertyName("time")]
         public string? Time { get; set; }

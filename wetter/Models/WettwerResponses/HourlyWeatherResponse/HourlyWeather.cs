@@ -15,7 +15,7 @@ namespace wetter.Models.WettwerResponses.HourlyWeatherResponse
     /// typically aligned by index, where each index represents the same hour across all properties. This class is
     /// commonly used to deserialize weather forecast data from JSON sources. All properties are nullable; if a property
     /// is null, the corresponding data is unavailable for that hour.</remarks>
-    public class HourlyWeather
+    internal class HourlyWeather
     {
         [JsonPropertyName("time")]
         public List<DateTime>? Time { get; set; }

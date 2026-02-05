@@ -14,7 +14,7 @@ namespace wetter.Models.WettwerResponses.DailyWeatherResponse
     /// property, such as temperature, precipitation, and wind speed. Each property corresponds to a specific weather
     /// metric and indicates the unit in which its values are reported. The properties are commonly populated when
     /// deserializing weather API responses that include unit metadata for daily data fields.</remarks>
-    public class DailyUnits
+    internal class DailyUnits
     {
         [JsonPropertyName("time")]
         public string? Time { get; set; }

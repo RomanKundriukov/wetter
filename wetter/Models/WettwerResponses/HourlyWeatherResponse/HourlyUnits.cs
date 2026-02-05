@@ -15,7 +15,7 @@ namespace wetter.Models.WettwerResponses.HourlyWeatherResponse
     /// specific weather data field and indicates the unit in which that field's values are reported (for example,
     /// degrees Celsius, millimeters, or meters per second). The properties are nullable to accommodate cases where
     /// certain units may not be specified in the API response.</remarks>
-    public class HourlyUnits
+    internal class HourlyUnits
     {
         [JsonPropertyName("time")]
         public string? Time { get; set; }

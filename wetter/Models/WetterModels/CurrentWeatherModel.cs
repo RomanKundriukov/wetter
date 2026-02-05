@@ -16,7 +16,7 @@ namespace wetter.Models.WetterModels
     /// real-time weather information. It contains both metadata about the location and the units used, as well as the
     /// actual weather measurements. All properties correspond to fields commonly found in weather service responses and
     /// are mapped for convenient access in .NET applications.</remarks>
-    public class CurrentWeatherModel
+    internal class CurrentWeatherModel
     {
         [JsonPropertyName("latitude")]
         public double Latitude { get; set; }

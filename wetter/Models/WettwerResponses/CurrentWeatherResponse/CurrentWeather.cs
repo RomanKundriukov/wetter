@@ -16,7 +16,7 @@ namespace wetter.Models.WettwerResponses.CurrentWeatherResponse
     /// are mapped to their respective JSON fields. Values are provided in commonly used units: temperature in degrees
     /// Celsius, wind speed in meters per second, precipitation in millimeters, and humidity as a percentage. The
     /// meaning of the weather code depends on the data provider's specification.</remarks>
-    public class CurrentWeather
+    internal class CurrentWeather
     {
         [JsonPropertyName("time")]
         public string? Time { get; set; }

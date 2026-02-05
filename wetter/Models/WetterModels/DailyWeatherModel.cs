@@ -16,7 +16,7 @@ namespace wetter.Models.WetterModels
     /// details. It is typically used to deserialize weather API responses that provide daily forecasts or historical
     /// weather data. The properties correspond to fields commonly found in weather service responses, enabling easy
     /// access to both metadata and daily weather values.</remarks>
-    public class DailyWeatherModel
+    internal class DailyWeatherModel
     {
         [JsonPropertyName("latitude")]
         public double Latitude { get; set; }

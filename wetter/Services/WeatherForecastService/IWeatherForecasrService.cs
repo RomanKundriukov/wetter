@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wetter.Models.WetterModels;
+using Windows.Globalization;
 
 namespace wetter.Services
 {
@@ -26,3 +27,4 @@ namespace wetter.Services
 
     }
 }
+

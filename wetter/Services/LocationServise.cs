@@ -37,7 +37,7 @@ namespace wetter.Services
         /// <remarks>Use this method to access the global LocationServise instance. This method always
         /// returns the same instance.</remarks>
         /// <returns>The single, shared instance of the LocationServise class.</returns>
-        public static LocationServise GetInstance() => _instance!;
+        internal static LocationServise GetInstance() => _instance!;
 
         /// <summary>
         /// Asynchronously updates the current latitude and longitude properties with the device's latest geographic

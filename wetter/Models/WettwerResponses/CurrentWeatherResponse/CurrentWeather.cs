@@ -7,42 +7,41 @@ using System.Threading.Tasks;
 
 namespace wetter.Models.WettwerResponses.CurrentWeatherResponse
 {
-    internal class CurrentWeather
+    public class CurrentWeather
     {
         [JsonPropertyName("time")]
-        internal DateTime Time { get; set; }
+        public string? Time { get; set; }
 
         [JsonPropertyName("interval")]
-        internal int Interval { get; set; }
+        public int Interval { get; set; }
 
         [JsonPropertyName("temperature_2m")]
-        internal double Temperature { get; set; }
+        public double Temperature { get; set; }
 
         [JsonPropertyName("relative_humidity_2m")]
-        internal int RelativeHumidity { get; set; }
+        public int RelativeHumidity { get; set; }
 
         [JsonPropertyName("rain")]
-        internal double Rain { get; set; }
+        public double Rain { get; set; }
 
         [JsonPropertyName("snowfall")]
-        internal double Snowfall { get; set; }
-
+        public double Snowfall { get; set; }
         [JsonPropertyName("weather_code")]
-        internal int WeatherCode { get; set; }
+        public int WeatherCode { get; set; }
 
         [JsonPropertyName("wind_speed_10m")]
-        internal double WindSpeed { get; set; }
+        public double WindSpeed { get; set; }
 
         [JsonPropertyName("apparent_temperature")]
-        internal double ApparentTemperature { get; set; }
+        public double ApparentTemperature { get; set; }
 
-        [JsonPropertyName("precipitatioin")]
-        internal double Precipitation { get; set; }
+        [JsonPropertyName("precipitation")]
+        public double Precipitation { get; set; }
 
         [JsonPropertyName("wind_direction_10m")]
-        internal int WindDirection { get; set; }
+        public int WindDirection { get; set; }
 
         [JsonPropertyName("wind_gusts_10m")]
-        internal double WindGusts { get; set; }
+        public double WindGusts { get; set; }
     }
 }

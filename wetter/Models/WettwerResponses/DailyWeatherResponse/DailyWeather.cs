@@ -7,42 +7,42 @@ using System.Threading.Tasks;
 
 namespace wetter.Models.WettwerResponses.DailyWeatherResponse
 {
-    internal class DailyWeather
+    public class DailyWeather
     {
         [JsonPropertyName("time")]
-        internal List<DateTime>? Time { get; set; }
+        public List<string>? Time { get; set; }
 
         [JsonPropertyName("weather_code")]
-        internal List<int>? WeatherCode { get; set; }
+        public List<int>? WeatherCode { get; set; }
 
         [JsonPropertyName("temperature_2m_max")]
-        internal List<double>? TemperatureMax { get; set; }
+        public List<double>? TemperatureMax { get; set; }
 
         [JsonPropertyName("temperature_2m_min")]
-        internal List<double>? TemperatureMin { get; set; }
+        public List<double>? TemperatureMin { get; set; }
 
         [JsonPropertyName("precipitation_sum")]
-        internal List<double>? PrecipitationSum { get; set; }
+        public List<double>? PrecipitationSum { get; set; }
 
         [JsonPropertyName("precipitation_probability_max")]
-        internal List<int>? PrecipitationProbabilityMax { get; set; }
+        public List<int>? PrecipitationProbabilityMax { get; set; }
 
         [JsonPropertyName("rain_sum")]
-        internal List<double>? RainSum { get; set; }
+        public List<double>? RainSum { get; set; }
 
         [JsonPropertyName("snowfall_sum")]
-        internal List<double>? SnowfallSum { get; set; }
+        public List<double>? SnowfallSum { get; set; }
 
         [JsonPropertyName("sunrise")]
-        internal List<DateTime>? Sunrise { get; set; }
+        public List<DateTime>? Sunrise { get; set; }
 
         [JsonPropertyName("sunset")]
-        internal List<DateTime>? Sunset { get; set; }
+        public List<DateTime>? Sunset { get; set; }
 
         [JsonPropertyName("wind_speed_10m_max")]
-        internal List<double>? WindSpeed { get; set; }
+        public List<double>? WindSpeed { get; set; }
 
         [JsonPropertyName("wind_gusts_10m_max")]
-        internal List<double>? WindGusts { get; set; }
+        public List<double>? WindGusts { get; set; }
     }
 }

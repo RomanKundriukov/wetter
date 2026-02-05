@@ -7,42 +7,42 @@ using System.Threading.Tasks;
 
 namespace wetter.Models.WettwerResponses.CurrentWeatherResponse
 {
-    internal class CurrentUnits
+    public class CurrentUnits
     {
         [JsonPropertyName("time")]
-        internal DateTime Time { get; set; }
+        public string? Time { get; set; }
 
         [JsonPropertyName("interval")]
-        internal string Interval { get; set; } = string.Empty;
+        public string? Interval { get; set; }
 
         [JsonPropertyName("temperature_2m")]
-        internal string Temperature { get; set; } = string.Empty;
+        public string? Temperature { get; set; }
 
         [JsonPropertyName("relative_humidity_2m")]
-        internal string RelativeHumidity { get; set; } = string.Empty;
-        
+        public string? RelativeHumidity { get; set; }
+
         [JsonPropertyName("rain")]
-        internal string Rain {get; set; } = string.Empty;
+        public string? Rain { get; set; }
 
         [JsonPropertyName("snowfall")]
-        internal string Snowfall { get; set;  } = string.Empty;
+        public string? Snowfall { get; set; }
 
         [JsonPropertyName("weather_code")]
-        internal string WeatherCode { get; set; } = string.Empty;
+        public string? WeatherCode { get; set; }
 
         [JsonPropertyName("wind_speed_10m")]
-        internal string WindSpeed {  get; set; } = string.Empty;
+        public string? WindSpeed { get; set; }
 
         [JsonPropertyName("apparent_temperature")]
-        internal string ApparentTemperature {  get; set; } = string.Empty;
+        public string? ApparentTemperature { get; set; }
 
         [JsonPropertyName("precipitation")]
-        internal string Precipitation {  get; set; } = string.Empty;
+        public string? Precipitation { get; set; }
 
         [JsonPropertyName("wind_direction_10m")]
-        internal string WindDirection {  get; set; } = string.Empty;
+        public string? WindDirection { get; set; }
 
-        [JsonPropertyName("wind_guest_10m")]
-        internal string WindGuest {  get; set; } = string.Empty;
+        [JsonPropertyName("wind_gusts_10m")]
+        public string? WindGuest { get; set; }
     }
 }

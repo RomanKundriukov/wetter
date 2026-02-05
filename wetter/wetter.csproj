@@ -45,9 +45,6 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260101001" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="Views\SettingView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -9,7 +9,7 @@ namespace wetter.ViewModels
 {
     internal class WetterViewModel
     {
-        private ILocationService _locationService;
+        private ILocationService? _locationService;
         public WetterViewModel() 
         {
             _locationService = LocationServise.GetInstance();

@@ -7,54 +7,54 @@ using System.Threading.Tasks;
 
 namespace wetter.Models.WettwerResponses.HourlyWeatherResponse
 {
-    internal class HourlyUnits
+    public class HourlyUnits
     {
         [JsonPropertyName("time")]
-        internal string Time { get; set; } = string.Empty;
+        public string? Time { get; set; }
 
         [JsonPropertyName("temperature_2m")]
-        internal string Temperature { get; set; } = string.Empty;
+        public string? Temperature { get; set; }
 
         [JsonPropertyName("apparent_temperature")]
-        internal string ApparentTemperature { get; set; } = string.Empty;
+        public string? ApparentTemperature { get; set; }
 
         [JsonPropertyName("precipitation_probability")]
-        internal string PrecipitationProbability { get; set; } = string.Empty;
+        public string? PrecipitationProbability { get; set; }
 
         [JsonPropertyName("precipitation")]
-        internal string Precipitation { get; set; } = string.Empty;
+        public string? Precipitation { get; set; }
 
         [JsonPropertyName("rain")]
-        internal string Rain { get; set; } = string.Empty;
+        public string? Rain { get; set; }
 
         [JsonPropertyName("snowfall")]
-        internal string Snowfall { get; set; } = string.Empty;
+        public string? Snowfall { get; set; }
 
         [JsonPropertyName("weather_code")]
-        internal string WeatherCode { get; set; } = string.Empty;
+        public string? WeatherCode { get; set; }
 
         [JsonPropertyName("wind_speed_10m")]
-        internal string WindSpeed { get; set; } = string.Empty;
+        public string? WindSpeed { get; set; }
 
-        [JsonPropertyName("wind_guest_10m")]
-        internal string WindGuest { get; set; } = string.Empty;
+        [JsonPropertyName("wind_gusts_10m")]
+        public string? WindGuest { get; set; }
 
         [JsonPropertyName("wind_direction_10m")]
-        internal string WindDirection { get; set; } = string.Empty;
+        public string? WindDirection { get; set; }
 
-        [JsonPropertyName("snow_deepth")]
-        internal string SnowDeepth { get; set; } = string.Empty;
+        [JsonPropertyName("snow_depth")]
+        public string? SnowDeepth { get; set; }
 
         [JsonPropertyName("visibility")]
-        internal string Visibility { get; set; } = string.Empty;
+        public string? Visibility { get; set; }
 
         [JsonPropertyName("cloud_cover")]
-        internal string CloudCover { get; set; } = string.Empty;
+        public string? CloudCover { get; set; }
 
         [JsonPropertyName("surface_pressure")]
-        internal string SurfacePressure { get; set; } = string.Empty;
+        public string? SurfacePressure { get; set; }
 
         [JsonPropertyName("freezing_level_height")]
-        internal string FreezingLevelHeight { get; set; } = string.Empty;
+        public string? FreezingLevelHeight { get; set; }
     }
 }

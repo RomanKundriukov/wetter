@@ -9,33 +9,33 @@ using wetter.Models.WettwerResponses.HourlyWeatherResponse;
 
 namespace wetter.Models.WetterModels
 {
-    internal class HourlyWeatherModel
+    public class HourlyWeatherModel
     {
         [JsonPropertyName("latitude")]
-        internal double Latitude { get; set; }
+        public double Latitude { get; set; }
 
         [JsonPropertyName("longitude")]
-        internal double Longitude { get; set; }
+        public double Longitude { get; set; }
 
         [JsonPropertyName("generationtime_ms")]
-        internal double GenerationtimeMs { get; set; }
+        public double GenerationtimeMs { get; set; }
 
         [JsonPropertyName("utc_offset_seconds")]
-        internal int UtcOffsetSeconds { get; set; }
+        public int UtcOffsetSeconds { get; set; }
 
         [JsonPropertyName("timezone")]
-        internal string? Timezone { get; set; }
+        public string? Timezone { get; set; }
 
         [JsonPropertyName("timezone_abbreviation")]
-        internal string? TimezoneAbbreviation { get; set; }
+        public string? TimezoneAbbreviation { get; set; }
 
         [JsonPropertyName("elevation")]
-        internal double Elevation { get; set; }
+        public double Elevation { get; set; }
 
         [JsonPropertyName("hourly_units")]
-        internal HourlyUnits HourlyUnits { get; set; } = new();
+        public HourlyUnits HourlyUnits { get; set; } = new();
 
         [JsonPropertyName("hourly")]
-        internal HourlyWeather HourlyWeather { get; set; } = new();
+        public HourlyWeather HourlyWeather { get; set; } = new();
     }
 }

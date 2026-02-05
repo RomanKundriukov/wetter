@@ -30,7 +30,7 @@ namespace wetter.ViewModels
             await _locationService.UpdateLocationAsync();
 
             // Jetzt sind Latitude/Longitude gesetzt
-            await _weatherForecastService.GetDailyWeather(
+            await _weatherForecastService.GetHourlyWeather(
                 7,
                 _locationService.Latitude,
                 _locationService.Longitude,

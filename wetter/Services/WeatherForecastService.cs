@@ -121,6 +121,42 @@ namespace wetter.Services
             }
         }
 
-        internal HourlyWeatherModel GetHourlyWeather(int days) { return new HourlyWeatherModel(); }
+        internal async Task<HourlyWeatherModel> GetHourlyWeather(int days, double latitude, double longitude, string timezone) 
+        {
+            try
+            {
+                string hourly =
+                    "temperature_2m,apparent_temperature,precipitation_probability,precipitation,rain,snowfall,weather_code,wind_speed_10m," +
+                    "wind_gusts_10m,wind_direction_10m,snow_depth,visibility,cloud_cover,surface_pressure,freezing_level_height";
+
+                var url =
+                    $"?latitude={latitude.ToString(CultureInfo.InvariantCulture)}" +
+                    $"&longitude={longitude.ToString(CultureInfo.InvariantCulture)}" +
+                    $"&hourly={Uri.EscapeDataString(hourly)}" +
+                    $"&timezone={Uri.EscapeDataString(timezone)}" +
+                    $"&forecast_days={days}" +
+                    $"&wind_speed_unit=ms";
+
+                var response = await _httpClient.GetAsync(url);
+
+                response.EnsureSuccessStatusCode();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var model = await response.Content.ReadFromJsonAsync<HourlyWeatherModel>()
+                        .ConfigureAwait(false);
+                    return model ?? new HourlyWeatherModel();
+                }
+                else
+                {
+                    throw new InvalidOperationException(response?.RequestMessage?.ToString());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -25,16 +25,58 @@
         </Style>
     </Page.Resources>
 
+    <!--Haup Seite-->
     <StackPanel Spacing="10" Padding="10">
 
-        <!--Information-->
+        <!--Stadt-->
+        <Grid ui:Effects.Shadow="{StaticResource CommonShadow}"
+              Padding="15"
+              ColumnSpacing="15">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="{Binding Stadt}"
+                       FontFamily="Comic Sans MS"
+                       FontSize="24"
+                       Grid.Column="0"/>
+
+            <TextBlock Text="{Binding ActuelesTemeperatur}"
+                       FontFamily="Comic Sans MS"
+                       FontSize="24"
+                       Grid.Column="1"
+                       TextAlignment="End"/>
+        </Grid>
+        <!--Oberste Panel-->
         <Grid ColumnSpacing="15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!--logo-->
+            <!--Actuelle Wetter-->
+            <Grid Grid.Column="0"
+                  ui:Effects.Shadow="{StaticResource CommonShadow}">
+                
+            </Grid>
+            
+            <!--Wetter map-->
+            <Grid Grid.Column="1"
+                  ui:Effects.Shadow="{StaticResource CommonShadow}">
+                
+            </Grid>
+        </Grid>
+
+        <!--Information--><!--
+        <Grid ColumnSpacing="15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            --><!--logo--><!--
             <StackPanel Grid.Column="0"
                         Padding="15"
                         ui:Effects.Shadow="{StaticResource CommonShadow}">
@@ -47,7 +89,7 @@
 
             </StackPanel>
 
-            <!--Land Information-->
+            --><!--Land Information--><!--
             <StackPanel Grid.Column="1"
                         Padding="15"
                         ui:Effects.Shadow="{StaticResource CommonShadow}">
@@ -111,9 +153,9 @@
             
         </Grid>
         
-        <!--Diagramms-->
+        --><!--Diagramms--><!--
         <Grid>
 
-        </Grid>
+        </Grid>-->
     </StackPanel>
 </Page>

@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using wetter.Models.LocationsModel;
+using wetter.Models.WetterModels;
 using wetter.Services;
 using wetter.Services.LocationService;
 
@@ -118,7 +119,23 @@ namespace wetter.ViewModels
             }
         }
        
+        private string _actuelesTemeperatur = string.Empty;
+        public string ActuelesTemeperatur
+        {
+            get => _actuelesTemeperatur;
+            set
+            {
+                if(_actuelesTemeperatur != value)
+                {
+                    _actuelesTemeperatur=value;
+                }
+                OnPropertyChanged(nameof(ActuelesTemeperatur));
+            }
+        }
+
         #endregion
+
+
         public WetterViewModel() 
         {
             _locationService = LocationServise.GetInstance();
@@ -128,13 +145,14 @@ namespace wetter.ViewModels
         public async Task Initialize()
         {
             await GetKoordinaten();
-            await getLocationInfo(_locationService.Latitude, _locationService.Longitude);
+            await GetLocationInfoAsync(_locationService.Latitude, _locationService.Longitude);
+            await GetCurrentWetherAsync();
         }
         private async Task GetKoordinaten() => await _locationService.UpdateLocationAsync();
 
-        private async Task getLocationInfo(double latitude, double longitude)
+        private async Task GetLocationInfoAsync(double latitude, double longitude)
         {
-           var location =  await _locationService.GetLocationInfo(latitude: latitude, longitude: longitude);
+           var location =  await _locationService.GetLocationInfoAsync(latitude: latitude, longitude: longitude);
 
             if(location is not null)
             {
@@ -142,7 +160,7 @@ namespace wetter.ViewModels
 
                 Bundesland = location.Address.State ?? string.Empty;
 
-                Stadt = $"{location.Address.Postcode ?? string.Empty}  {location.Address.Town ?? string.Empty}";
+                Stadt = location.Address.Town ?? string.Empty;
 
                 Strasse = location.Address.Road ?? string.Empty;
 
@@ -153,6 +171,15 @@ namespace wetter.ViewModels
             
         }
 
+        private async Task GetCurrentWetherAsync()
+        {
+            var currentWeather = await _weatherForecastService.GetCurrentWeatherAsync(days: 1, latitude:_locationService.Latitude, longitude: _locationService.Longitude, timezone:"Europe/Berlin");
+
+            if(currentWeather.CurrentWeather is not null)
+            {
+                ActuelesTemeperatur = $"{currentWeather.CurrentWeather.Temperature} {currentWeather.CurrentUnits.Temperature}"; 
+            }
+        }
         //private async Task InitializeAsync()
         //{
         //    await _locationService.UpdateLocationAsync();

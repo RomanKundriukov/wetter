@@ -17,6 +17,6 @@ namespace wetter.Services.LocationService
         double Latitude { get; }
         double Longitude { get; }
         Task UpdateLocationAsync();
-        Task<LocationModel> GetLocationInfo(double latitude, double longitude);
+        Task<LocationModel> GetLocationInfoAsync(double latitude, double longitude);
     }
 }

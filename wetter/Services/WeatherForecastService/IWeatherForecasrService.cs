@@ -19,11 +19,11 @@ namespace wetter.Services
     /// service-specific limits.</remarks>
     internal interface IWeatherForecasrService
     {
-        Task<CurrentWeatherModel> GetCurrentWeather(int days, double latitude, double longitude, string timezone);
+        Task<CurrentWeatherModel> GetCurrentWeatherAsync(int days, double latitude, double longitude, string timezone);
 
-        Task<DailyWeatherModel> GetDailyWeather(int days, double latitude, double longitude, string timezone);
+        Task<DailyWeatherModel> GetDailyWeatherAsync(int days, double latitude, double longitude, string timezone);
 
-        Task<HourlyWeatherModel> GetHourlyWeather(int days, double latitude, double longitude, string timezone);
+        Task<HourlyWeatherModel> GetHourlyWeatherAsync(int days, double latitude, double longitude, string timezone);
 
     }
 }

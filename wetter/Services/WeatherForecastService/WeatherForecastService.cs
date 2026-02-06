@@ -69,7 +69,7 @@ namespace wetter.Services
         /// <returns>A task that represents the asynchronous operation. The task result contains a <see
         /// cref="CurrentWeatherModel"/> with the current weather information for the specified location and time zone.</returns>
         /// <exception cref="Exception">Thrown if an error occurs while retrieving or processing the weather data.</exception>
-        public async Task<CurrentWeatherModel> GetCurrentWeather(int days, double latitude, double longitude, string timezone)
+        public async Task<CurrentWeatherModel> GetCurrentWeatherAsync(int days, double latitude, double longitude, string timezone)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace wetter.Services
         /// <returns>A task that represents the asynchronous operation. The task result contains a <see
         /// cref="DailyWeatherModel"/> with the current weather information for the specified location and time zone.</returns>
         /// <exception cref="Exception"></exception>
-        public async Task<DailyWeatherModel> GetDailyWeather(int days, double latitude, double longitude, string timezone) 
+        public async Task<DailyWeatherModel> GetDailyWeatherAsync(int days, double latitude, double longitude, string timezone) 
         {
             try
             {
@@ -168,7 +168,7 @@ namespace wetter.Services
         /// <returns>A task that represents the asynchronous operation. The task result contains a <see
         /// cref="HourlyWeatherModel"/> with the current weather information for the specified location and time zone.</returns>
         /// <exception cref="Exception"></exception>
-        public async Task<HourlyWeatherModel> GetHourlyWeather(int days, double latitude, double longitude, string timezone) 
+        public async Task<HourlyWeatherModel> GetHourlyWeatherAsync(int days, double latitude, double longitude, string timezone) 
         {
             try
             {

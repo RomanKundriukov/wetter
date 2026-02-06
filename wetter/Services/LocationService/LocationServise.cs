@@ -108,7 +108,7 @@ namespace wetter.Services.LocationService
         /// with location details for the specified coordinates. If no location is found, an empty <see
         /// cref="LocationModel"/> is returned.</returns>
         /// <exception cref="Exception">Thrown if an error occurs while retrieving location information.</exception>
-        public async Task<LocationModel> GetLocationInfo(double latitude, double longitude)
+        public async Task<LocationModel> GetLocationInfoAsync(double latitude, double longitude)
         {
             try
             {

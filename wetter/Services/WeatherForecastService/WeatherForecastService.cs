@@ -75,7 +75,7 @@ namespace wetter.Services
             {
                 string current =
                     "temperature_2m,relative_humidity_2m,rain,snowfall,weather_code,wind_speed_10m," +
-                    "apparent_temperature,precipitation,wind_direction_10m,wind_gusts_10m";
+                    "apparent_temperature,precipitation,wind_direction_10m,wind_gusts_10m,is_day";
 
                 var url =
                     $"?latitude={latitude.ToString(CultureInfo.InvariantCulture)}" +

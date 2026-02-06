@@ -47,6 +47,11 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260101001" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Jsons\description.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\SettingView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using wetter.Models.LocationsModel;
 using wetter.Models.WetterModels;
 using wetter.Services;
+using wetter.Services.FileReader;
 using wetter.Services.LocationService;
+using wetter.Services.WeatherCode;
 
 namespace wetter.ViewModels
 {
@@ -27,7 +29,8 @@ namespace wetter.ViewModels
         #region Initialise Service
 
         private ILocationService _locationService;
-        WeatherForecastService _weatherForecastService;
+        private WeatherForecastService _weatherForecastService;
+        private WeatherCodeService _weatherCode;
 
         #endregion
 
@@ -140,13 +143,16 @@ namespace wetter.ViewModels
         {
             _locationService = LocationServise.GetInstance();
             _weatherForecastService = WeatherForecastService.GetInstance();
+            _weatherCode = WeatherCodeService.GetInstanse();
         }
 
         public async Task Initialize()
         {
-            await GetKoordinaten();
-            await GetLocationInfoAsync(_locationService.Latitude, _locationService.Longitude);
-            await GetCurrentWetherAsync();
+            //await GetKoordinaten();
+            //await GetLocationInfoAsync(_locationService.Latitude, _locationService.Longitude);
+            //await GetCurrentWetherAsync();
+
+            await GetWeatherCode();
         }
         private async Task GetKoordinaten() => await _locationService.UpdateLocationAsync();
 
@@ -179,6 +185,11 @@ namespace wetter.ViewModels
             {
                 ActuelesTemeperatur = $"{currentWeather.CurrentWeather.Temperature} {currentWeather.CurrentUnits.Temperature}"; 
             }
+        }
+
+        private async Task GetWeatherCode()
+        {
+           await _weatherCode.GetWeatherCode();
         }
         //private async Task InitializeAsync()
         //{

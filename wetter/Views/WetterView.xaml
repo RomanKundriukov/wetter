@@ -28,7 +28,7 @@
     <!--Haup Seite-->
     <StackPanel Spacing="10" Padding="10">
 
-        <!--Stadt-->
+        <!--Oberste Titel-->
         <Grid ui:Effects.Shadow="{StaticResource CommonShadow}"
               Padding="15"
               ColumnSpacing="15">
@@ -38,11 +38,13 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             
+            <!--Stadt-->
             <TextBlock Text="{Binding Stadt}"
                        FontFamily="Comic Sans MS"
                        FontSize="24"
                        Grid.Column="0"/>
 
+            <!--Temperatur-->
             <TextBlock Text="{Binding ActuelesTemeperatur}"
                        FontFamily="Comic Sans MS"
                        FontSize="24"

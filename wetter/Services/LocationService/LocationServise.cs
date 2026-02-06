@@ -73,7 +73,7 @@ namespace wetter.Services.LocationService
         {
             try
             {
-                Geolocator geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
+                Geolocator geolocator = new Geolocator { DesiredAccuracyInMeters = 1 };
                 Geoposition position = await geolocator.GetGeopositionAsync();
 
                 Latitude = position.Coordinate.Point.Position.Latitude;

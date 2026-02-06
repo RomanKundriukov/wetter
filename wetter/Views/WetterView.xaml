@@ -38,13 +38,12 @@
             <StackPanel Grid.Column="0"
                         Padding="15"
                         ui:Effects.Shadow="{StaticResource CommonShadow}">
-                <TextBlock
-                           Text="Wetter"
+                <Image
+                           Source="/Assets/wetter.png"
                            Grid.Column="0"
                            Grid.Row="0"
                            HorizontalAlignment="Center" 
-                           VerticalAlignment="Center" 
-                           FontSize="24"/>
+                           VerticalAlignment="Center" />
 
             </StackPanel>
 
@@ -54,6 +53,7 @@
                         ui:Effects.Shadow="{StaticResource CommonShadow}">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -85,19 +85,25 @@
                     <TextBlock Text="{Binding Stadt}"
                                Grid.Row="2"
                                Grid.Column="1"/>
-                    
-                    <TextBlock Text="Straße"
+
+                    <TextBlock Text="Vorort"
                                Grid.Row="3"
                                Grid.Column="0"/>
-                    <TextBlock Text="{Binding Strasse}"
+                    <TextBlock Text="{Binding Vorort}"
                                Grid.Row="3"
                                Grid.Column="1"/>
 
-
-                    <TextBlock Text="Haus Nummer"
-                               Grid.Row="4"/>
-                    <TextBlock Text="{Binding HausNummer}"
+                    <TextBlock Text="Straße"
                                Grid.Row="4"
+                               Grid.Column="0"/>
+                    <TextBlock Text="{Binding Strasse}"
+                               Grid.Row="4"
+                               Grid.Column="1"/>
+
+                    <TextBlock Text="Hausnummer"
+                               Grid.Row="5"/>
+                    <TextBlock Text="{Binding HausNummer}"
+                               Grid.Row="5"
                                Grid.Column="1"/>
                 </Grid>
 

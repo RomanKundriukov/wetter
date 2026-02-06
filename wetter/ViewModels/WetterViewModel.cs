@@ -76,6 +76,20 @@ namespace wetter.ViewModels
             }
         }
 
+        private string _vorort = string.Empty;
+        public string Vorort
+        {
+            get => _vorort;
+            set
+            {
+                if(_vorort != value)
+                {
+                    _vorort = value;
+                }
+                OnPropertyChanged(nameof(Vorort));
+            }
+        }
+
         private string _strasse = string.Empty;
         public string Strasse
         {
@@ -128,12 +142,13 @@ namespace wetter.ViewModels
 
                 Bundesland = location.Address.State ?? string.Empty;
 
-                Stadt = location.Address.Town ?? string.Empty;
+                Stadt = $"{location.Address.Postcode ?? string.Empty}  {location.Address.Town ?? string.Empty}";
 
                 Strasse = location.Address.Road ?? string.Empty;
 
                 HausNummer = location.Address.HouseNumber ?? string.Empty;
 
+                Vorort = location.Address.Village ?? string.Empty;
             }
             
         }

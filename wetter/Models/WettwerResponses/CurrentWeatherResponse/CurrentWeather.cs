@@ -19,7 +19,7 @@ namespace wetter.Models.WettwerResponses.CurrentWeatherResponse
     internal class CurrentWeather
     {
         [JsonPropertyName("time")]
-        public string? Time { get; set; }
+        public DateTime Time { get; set; }
 
         [JsonPropertyName("interval")]
         public int Interval { get; set; }

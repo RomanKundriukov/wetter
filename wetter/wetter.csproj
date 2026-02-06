@@ -14,6 +14,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\arrow.png" />
+    <None Remove="Assets\reload.png" />
     <None Remove="Views\SettingView.xaml" />
     <None Remove="Views\WetterView.xaml" />
   </ItemGroup>

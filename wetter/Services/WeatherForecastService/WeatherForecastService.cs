@@ -25,7 +25,7 @@ namespace wetter.Services
     /// models representing the forecast information. The service is not thread-safe for modifications, but concurrent
     /// read operations are supported. Network errors or invalid input may result in exceptions; callers should handle
     /// these cases appropriately.</remarks>
-    internal class WeatherForecastService : IWeatherForecasrService
+    internal class WeatherForecastService : IWeatherForecastService
     {
         /// <summary>
         /// Http Client

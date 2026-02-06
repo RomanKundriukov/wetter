@@ -6,50 +6,52 @@
     xmlns:local="using:wetter.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:media="using:CommunityToolkit.WinUI.Media"
-    xmlns:ui="using:CommunityToolkit.WinUI"
     mc:Ignorable="d">
 
-    <!--<Page.DataContext>
-        <vm:WetterViewModel x:Name="vm"/>
-    </Page.DataContext>-->
-
-    <Page.Resources>
-        <media:AttachedCardShadow x:Key="CommonShadow"
-                                  Offset="4" />
-
-        <Style BasedOn="{StaticResource DefaultButtonStyle}"
-               TargetType="Button">
-            <Setter Property="ui:Effects.Shadow" Value="{StaticResource CommonShadow}" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-        </Style>
-    </Page.Resources>
+    <Page.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#FF1F487E" Offset="0.0"/>
+            <GradientStop Color="#FF14223F" Offset="0.65"/>
+            <GradientStop Color="#FF323C56" Offset="1.0"/>
+        </LinearGradientBrush>
+    </Page.Background>
 
     <!--Haup Seite-->
     <StackPanel Spacing="10" Padding="10">
 
         <!--Oberste Titel-->
-        <Grid ui:Effects.Shadow="{StaticResource CommonShadow}"
-              Padding="15"
-              ColumnSpacing="15">
+        <Grid Padding="15"
+              ColumnSpacing="15"
+              Style="{StaticResource GridShadow}">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
+
+            <Button Command="{Binding RefreshCommand}"
+                    Grid.Column="0"
+                    Width="40"
+                    Height="40"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Padding="0">
+                <Image Source="/Assets/reload.png"
+                       Width="24"
+                       Height="24"
+                       Stretch="Uniform"/>
+            </Button>
             <!--Stadt-->
             <TextBlock Text="{Binding Stadt}"
-                       FontFamily="Comic Sans MS"
-                       FontSize="24"
-                       Grid.Column="0"/>
+                       Grid.Column="1"
+                       Style="{StaticResource TitelGross}"/>
 
             <!--Temperatur-->
             <TextBlock Text="{Binding ActuelesTemeperatur}"
-                       FontFamily="Comic Sans MS"
-                       FontSize="24"
-                       Grid.Column="1"
-                       TextAlignment="End"/>
+                       Grid.Column="2"
+                       TextAlignment="End"
+                       Style="{StaticResource TitelGross}"/>
         </Grid>
         <!--Oberste Panel-->
         <Grid ColumnSpacing="15">
@@ -60,104 +62,205 @@
 
             <!--Actuelle Wetter-->
             <Grid Grid.Column="0"
-                  ui:Effects.Shadow="{StaticResource CommonShadow}">
-                
-            </Grid>
-            
-            <!--Wetter map-->
-            <Grid Grid.Column="1"
-                  ui:Effects.Shadow="{StaticResource CommonShadow}">
-                
-            </Grid>
-        </Grid>
+                  ColumnSpacing="15"
+                  MaxWidth="375"
+                  Padding="15"
+                  Style="{StaticResource GridShadow}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-        <!--Information--><!--
-        <Grid ColumnSpacing="15">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
 
-            --><!--logo--><!--
-            <StackPanel Grid.Column="0"
-                        Padding="15"
-                        ui:Effects.Shadow="{StaticResource CommonShadow}">
-                <Image
-                           Source="/Assets/wetter.png"
-                           Grid.Column="0"
+                <TextBlock Text="Aktuell"
                            Grid.Row="0"
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center" />
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding Datum}"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
+                <TextBlock Text="{Binding Zeit}"
+                           Grid.Row="0"
+                           Grid.Column="2"
+                           Style="{StaticResource TitelKlein}"/>
 
-            </StackPanel>
+                <Image Source="{Binding FotoPath}"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Height="75"
+                       Width="75"/>
 
-            --><!--Land Information--><!--
-            <StackPanel Grid.Column="1"
-                        Padding="15"
-                        ui:Effects.Shadow="{StaticResource CommonShadow}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding WetterBeschreibung}"
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource TitelMittel}"/>
 
-                    <TextBlock Text="Land"
-                               Grid.Row="0"
-                               Grid.Column="0"/>
-                    <TextBlock Text="{Binding Land}"
-                               Grid.Row="0"
-                               Grid.Column="1"/>
-                    
-                    <TextBlock Text="Bundesland"
-                               Grid.Row="1"
-                               Grid.Column="0"/>
-                    <TextBlock Text="{Binding Bundesland}"
-                               Grid.Row="1"
-                               Grid.Column="1"/>
-                    
-                    <TextBlock Text="Stadt"
-                               Grid.Row="2"
-                               Grid.Column="0"/>
-                    <TextBlock Text="{Binding Stadt}"
-                               Grid.Row="2"
-                               Grid.Column="1"/>
+                <TextBlock Text="Gefühl"
+                           Grid.Row="2"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding GefuehlteTemperature}"
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
 
-                    <TextBlock Text="Vorort"
-                               Grid.Row="3"
-                               Grid.Column="0"/>
-                    <TextBlock Text="{Binding Vorort}"
-                               Grid.Row="3"
-                               Grid.Column="1"/>
+                <TextBlock Text="Windgeschwindigkeit"
+                           Grid.Row="3"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding WindGesschwindigkeit}"
+                           Grid.Row="3"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
 
-                    <TextBlock Text="Straße"
-                               Grid.Row="4"
-                               Grid.Column="0"/>
-                    <TextBlock Text="{Binding Strasse}"
-                               Grid.Row="4"
-                               Grid.Column="1"/>
+                <TextBlock Text="Windrichtung"
+                           Grid.Row="4"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                
+                <Image Width="45" 
+                       Height="45" 
+                       Source="/Assets/arrow.png"
+                       Grid.Row="4"
+                       Grid.Column="1">
+                    <Image.RenderTransform>
+                        <RotateTransform Angle="{Binding WindRichtung}"
+                             CenterX="12" CenterY="12"/>
+                    </Image.RenderTransform>
+                </Image>
 
-                    <TextBlock Text="Hausnummer"
-                               Grid.Row="5"/>
-                    <TextBlock Text="{Binding HausNummer}"
-                               Grid.Row="5"
-                               Grid.Column="1"/>
-                </Grid>
+                <TextBlock Text="Regen"
+                           Grid.Row="5"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding Regen}"
+                           Grid.Row="5"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
 
-            </StackPanel>
-            
+                <TextBlock Text="Schnee"
+                           Grid.Row="6"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding Schnee}"
+                           Grid.Row="6"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
+
+                <TextBlock Text="Niederschlag"
+                           Grid.Row="7"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding Niederschlag}"
+                           Grid.Row="7"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
+
+
+                <TextBlock Text="Feuchte"
+                           Grid.Row="8"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding Feuchte}"
+                           Grid.Row="8"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
+
+
+
+
+
+            </Grid>
+
+            <!--Standort Information-->
+            <Grid Grid.Column="1"
+                  ColumnSpacing="15"
+                  MaxWidth="375"
+                  Padding="15"
+                  Style="{StaticResource GridShadow}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Land:"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding Land}"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
+
+                <TextBlock Text="Bundesland:"
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding Bundesland}"
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
+
+                <TextBlock Text="Stadt:"
+                           Grid.Row="2"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding Stadt}"
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
+
+                <TextBlock Text="Vorort:"
+                           Grid.Row="3"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding Vorort}"
+                           Grid.Row="3"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
+
+                <TextBlock Text="Straße:"
+                           Grid.Row="4"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding Strasse}"
+                           Grid.Row="4"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
+
+                <TextBlock Text="Hausnummer:"
+                           Grid.Row="5"
+                           Grid.Column="0"
+                           Style="{StaticResource TitelMittel}"/>
+                <TextBlock Text="{Binding HausNummer}"
+                           Grid.Row="5"
+                           Grid.Column="1"
+                           Style="{StaticResource TitelKlein}"/>
+            </Grid>
         </Grid>
-        
-        --><!--Diagramms--><!--
-        <Grid>
 
-        </Grid>-->
+
     </StackPanel>
 </Page>

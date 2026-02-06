@@ -27,12 +27,10 @@ namespace wetter.Views
         internal WetterViewModel _vm { get; set; }
         public WetterView()
         {
-            this.InitializeComponent();
-
             _vm = new WetterViewModel();
-
             _vm.Initialize();
 
+            this.InitializeComponent();
             DataContext = _vm;
         }
     }

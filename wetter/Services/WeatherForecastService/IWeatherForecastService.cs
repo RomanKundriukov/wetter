@@ -17,7 +17,7 @@ namespace wetter.Services
     /// geographic coordinates and time zone. Implementations may source data from external weather APIs or services.
     /// All methods require valid latitude and longitude values, and the number of days requested may be subject to
     /// service-specific limits.</remarks>
-    internal interface IWeatherForecasrService
+    internal interface IWeatherForecastService
     {
         Task<CurrentWeatherModel> GetCurrentWeatherAsync(int days, double latitude, double longitude, string timezone);
 

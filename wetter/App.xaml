@@ -3,7 +3,9 @@
     x:Class="wetter.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:wetter">
+    xmlns:local="using:wetter"
+    xmlns:media="using:CommunityToolkit.WinUI.Media"
+    xmlns:ui="using:CommunityToolkit.WinUI">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,6 +13,32 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
+            <!-- Shadow Resource -->
+            <media:AttachedCardShadow x:Key="CommonShadow" Offset="4"/>
+            
+            <Style x:Key="TitelGross" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Comic Sans MS"/>
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <Style x:Key="TitelMittel" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Comic Sans MS"/>
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <Style x:Key="TitelKlein" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Comic Sans MS"/>
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontWeight" Value="Light" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+            <Style x:Key="GridShadow" TargetType="Grid">
+                <Setter Property="ui:Effects.Shadow" Value="{StaticResource CommonShadow}"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

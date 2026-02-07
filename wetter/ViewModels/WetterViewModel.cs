@@ -1,13 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using wetter.Models.ListModels;
 using wetter.Models.LocationsModel;
+using wetter.Models.WeatherCode;
 using wetter.Models.WetterModels;
 using wetter.Services;
 using wetter.Services.FileReader;
@@ -51,7 +54,7 @@ namespace wetter.ViewModels
 
         private ILocationService _locationService;
         private IWeatherForecastService _weatherForecastService;
-        private IWeatherCodeService _weatherCode;
+        private IWeatherCodeService _weatherCodeService;
 
         #endregion
 
@@ -157,8 +160,8 @@ namespace wetter.ViewModels
             }
         }
 
-        private string _fotoPath = string.Empty;
-        public string FotoPath
+        private Uri _fotoPath;
+        public Uri FotoPath
         {
             get => _fotoPath;
             set
@@ -310,21 +313,32 @@ namespace wetter.ViewModels
                 OnPropertyChanged(nameof(Zeit));
             }
         }
+
+        private Dictionary<int, WeatherCodeModel> _weatherCodes;
+        public ObservableCollection<SmallWeatherModel> SmallWeatherModelsCollection;
         #endregion
 
-
+        
         public WetterViewModel() 
         {
             _locationService = LocationServise.GetInstance();
             _weatherForecastService = WeatherForecastService.GetInstance();
-            _weatherCode = WeatherCodeService.GetInstanse();
+            _weatherCodeService = WeatherCodeService.GetInstanse();
+
+            _weatherCodes = new Dictionary<int, WeatherCodeModel>();
+            SmallWeatherModelsCollection = new ObservableCollection<SmallWeatherModel>();
         }
 
         public async Task Initialize()
         {
+            _weatherCodes = await _weatherCodeService.GetWeatherCode();
+
             await GetKoordinaten();
             await GetLocationInfoAsync(_locationService.Latitude, _locationService.Longitude);
             await GetCurrentWetherAsync();
+            await GetHourlyWetherAsync();
+
+
         }
         private async Task GetKoordinaten() => await _locationService.UpdateLocationAsync();
 
@@ -336,17 +350,8 @@ namespace wetter.ViewModels
             {
                 Land = location.Address.Country ?? string.Empty;
 
-                Bundesland = location.Address.State ?? string.Empty;
-
                 Stadt = location.Address.Town ?? string.Empty;
-
-                Strasse = location.Address.Road ?? string.Empty;
-
-                HausNummer = location.Address.HouseNumber ?? string.Empty;
-
-                Vorort = location.Address.Village ?? string.Empty;
             }
-            
         }
 
         private async Task GetCurrentWetherAsync()
@@ -354,39 +359,61 @@ namespace wetter.ViewModels
             await GetKoordinaten();
 
             var currentWeather = await _weatherForecastService.GetCurrentWeatherAsync(days: 1, latitude:_locationService.Latitude, longitude: _locationService.Longitude, timezone:"Europe/Berlin");
-            var weatherCode = await _weatherCode.GetWeatherCode();
             if(currentWeather.CurrentWeather is not null)
             {
                 ActuelesTemeperatur = $"{currentWeather.CurrentWeather.Temperature} {currentWeather.CurrentUnits.Temperature}";
-                GefuehlteTemperature = $"{currentWeather.CurrentWeather.ApparentTemperature} {currentWeather.CurrentUnits.Temperature}";
                 WindGesschwindigkeit = $"{currentWeather.CurrentWeather.WindSpeed} {currentWeather.CurrentUnits.WindSpeed}";
-                WindRichtung = currentWeather.CurrentWeather.WindDirection;
-                Regen = $"{currentWeather.CurrentWeather.Rain} {currentWeather.CurrentUnits.Rain}";
-                Schnee = $"{currentWeather.CurrentWeather.Snowfall} {currentWeather.CurrentUnits.Snowfall}";
-                Niederschlag = $"{currentWeather.CurrentWeather.Precipitation} {currentWeather.CurrentUnits.Precipitation}";
                 Feuchte = $"{currentWeather.CurrentWeather.RelativeHumidity} {currentWeather.CurrentUnits.RelativeHumidity}";
-                Datum = DateOnly.FromDateTime(currentWeather.CurrentWeather.Time);
-                Zeit = TimeOnly.FromDateTime(currentWeather.CurrentWeather.Time);
             }
 
-            if(weatherCode is not null && currentWeather.CurrentWeather is not null)
+            if(_weatherCodes is not null && currentWeather.CurrentWeather is not null)
             {
                 int isDay = currentWeather.CurrentWeather.IsDay;
                 int code = currentWeather.CurrentWeather.WeatherCode;
                 
                 if(isDay == 1)
                 {
-                    FotoPath = weatherCode[code].Day.Image;
-                    WetterBeschreibung = weatherCode[code].Day.Description;
+                    FotoPath = new Uri(_weatherCodes[code].Day.Image);
+                    WetterBeschreibung = _weatherCodes[code].Day.Description;
                 }
                 else
                 {
-                    FotoPath = weatherCode[code].Night.Image;
-                    WetterBeschreibung = weatherCode[code].Night.Description;
+                    FotoPath = new Uri(_weatherCodes[code].Night.Image);
+                    WetterBeschreibung = _weatherCodes[code].Night.Description;
                 }
             }
         }
 
-        
+        private async Task GetHourlyWetherAsync()
+        {
+            await GetKoordinaten();
+
+            var hourlyWeather = await _weatherForecastService.GetHourlyWeatherAsync(days: 1, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
+            var dailyWeather = await _weatherForecastService.GetDailyWeatherAsync(days: 1, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
+
+            if (hourlyWeather.HourlyWeather is null || dailyWeather.DailyWeather is null)
+                return;
+
+            TimeOnly sonneAufgang = TimeOnly.FromDateTime(dailyWeather.DailyWeather.Sunrise.FirstOrDefault());
+            TimeOnly sonneUntergang = TimeOnly.FromDateTime(dailyWeather.DailyWeather.Sunset.FirstOrDefault());
+
+            for (int i = 0; i < hourlyWeather.HourlyWeather.Temperature?.Count; i++)
+            {
+                TimeOnly actTime = TimeOnly.FromDateTime(hourlyWeather.HourlyWeather.Time[i]);
+                int code = hourlyWeather.HourlyWeather.WeatherCode[i];
+
+                SmallWeatherModelsCollection.Add(new SmallWeatherModel
+                {
+                    Zeit = TimeOnly.FromDateTime(hourlyWeather.HourlyWeather.Time[i]),
+
+                    WeatherTemperatur = hourlyWeather.HourlyWeather.Temperature[i],
+
+                    WeatherCodeImagePath = (actTime > sonneUntergang && actTime < sonneUntergang) ? _weatherCodes[code].Day.Image : _weatherCodes[code].Night.Image
+                });
+            }
+
+        }
+
+
     }
 }

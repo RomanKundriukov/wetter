@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using wetter.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -28,10 +29,21 @@ namespace wetter.Views
         public WetterView()
         {
             _vm = new WetterViewModel();
-            _vm.Initialize();
+
+            initial();
+
 
             this.InitializeComponent();
             DataContext = _vm;
+        }
+
+        private void initial()
+        {
+            Task task = new Task(async () => await _vm.Initialize());
+
+            task.RunSynchronously();
+
+            Task.WaitAny(task);
         }
     }
 }

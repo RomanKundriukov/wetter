@@ -17,27 +17,35 @@
             <media:AttachedCardShadow x:Key="CommonShadow" Offset="4"/>
             
             <Style x:Key="TitelGross" TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="Comic Sans MS"/>
-                <Setter Property="FontSize" Value="24" />
-                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="28" />
+                <Setter Property="FontWeight" Value="Normal" />
                 <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
 
             <Style x:Key="TitelMittel" TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="Comic Sans MS"/>
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="Light" />
                 <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
 
             <Style x:Key="TitelKlein" TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="Comic Sans MS"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="FontWeight" Value="Light" />
                 <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
-            <Style x:Key="GridShadow" TargetType="Grid">
-                <Setter Property="ui:Effects.Shadow" Value="{StaticResource CommonShadow}"/>
+            <Style x:Key="CardBorderStyle" TargetType="Border">
+                <Setter Property="Background" Value="#FF282838"/>
+                <Setter Property="CornerRadius" Value="16"/>
+                <Setter Property="Padding" Value="14"/>
+            </Style>
+
+            <Style x:Key="GridStyle" TargetType="Grid">
+                <Setter Property="ColumnSpacing" Value="25" />
+                <Setter Property="Padding" Value="15"/>
+                <!--<Setter Property="RowSpacing" Value="15" />-->
             </Style>
         </ResourceDictionary>
     </Application.Resources>

@@ -18,42 +18,42 @@ namespace wetter.Models.WettwerResponses.CurrentWeatherResponse
     internal class CurrentUnits
     {
         [JsonPropertyName("time")]
-        public string? Time { get; set; }
+        public string Time { get; set; } = string.Empty;
 
         [JsonPropertyName("interval")]
-        public string? Interval { get; set; }
+        public string Interval { get; set; } = string.Empty;
 
         [JsonPropertyName("temperature_2m")]
-        public string? Temperature { get; set; }
+        public string Temperature { get; set; } = string.Empty;
 
         [JsonPropertyName("relative_humidity_2m")]
-        public string? RelativeHumidity { get; set; }
+        public string RelativeHumidity { get; set; } = string.Empty;
 
         [JsonPropertyName("rain")]
-        public string? Rain { get; set; }
+        public string Rain { get; set; } = string.Empty;
 
         [JsonPropertyName("snowfall")]
-        public string? Snowfall { get; set; }
+        public string Snowfall { get; set; } = string.Empty;
 
         [JsonPropertyName("weather_code")]
-        public string? WeatherCode { get; set; }
+        public string WeatherCode { get; set; } = string.Empty;
 
         [JsonPropertyName("wind_speed_10m")]
-        public string? WindSpeed { get; set; }
+        public string WindSpeed { get; set; } = string.Empty;
 
         [JsonPropertyName("apparent_temperature")]
-        public string? ApparentTemperature { get; set; }
+        public string ApparentTemperature { get; set; } = string.Empty;
 
         [JsonPropertyName("precipitation")]
-        public string? Precipitation { get; set; }
+        public string Precipitation { get; set; } = string.Empty;
 
         [JsonPropertyName("wind_direction_10m")]
-        public string? WindDirection { get; set; }
+        public string WindDirection { get; set; } = string.Empty;
 
         [JsonPropertyName("wind_gusts_10m")]
-        public string? WindGuest { get; set; }
+        public string WindGuest { get; set; } = string.Empty;
 
         [JsonPropertyName("is_day")]
-        public string? IsDay { get; set; }
+        public string IsDay { get; set; } = string.Empty;
     }
 }

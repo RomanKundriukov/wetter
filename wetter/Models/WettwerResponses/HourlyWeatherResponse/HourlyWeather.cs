@@ -18,51 +18,54 @@ namespace wetter.Models.WettwerResponses.HourlyWeatherResponse
     internal class HourlyWeather
     {
         [JsonPropertyName("time")]
-        public List<DateTime>? Time { get; set; }
+        public List<DateTime> Time { get; set; } = new();
 
         [JsonPropertyName("temperature_2m")]
-        public List<double>? Temperature { get; set; }
+        public List<double> Temperature { get; set; } = new();
+
+        [JsonPropertyName("uv_index")]
+        public List<double> UVIndex { get; set; } = new();
 
         [JsonPropertyName("apparent_temperature")]
-        public List<double>? ApparentTemperature { get; set; }
+        public List<double> ApparentTemperature { get; set; } = new();
 
         [JsonPropertyName("precipitation_probability")]
-        public List<int>? PrecipitationProbability { get; set; }
+        public List<int> PrecipitationProbability { get; set; } = new();
 
         [JsonPropertyName("precipitation")]
-        public List<double>? Precipitation { get; set; }
+        public List<double> Precipitation { get; set; } = new();
 
         [JsonPropertyName("rain")]
-        public List<double>? Rain { get; set; }
+        public List<double> Rain { get; set; } = new();
 
         [JsonPropertyName("snowfall")]
-        public List<double>? Snowfall { get; set; }
+        public List<double> Snowfall { get; set; } = new();
 
         [JsonPropertyName("weather_code")]
-        public List<int>? WeatherCode { get; set; }
+        public List<int>? WeatherCode { get; set; } = new();
 
         [JsonPropertyName("wind_speed_10m")]
-        public List<double>? WindSpeed { get; set; }
+        public List<double> WindSpeed { get; set; } = new();
 
         [JsonPropertyName("wind_gusts_10m")]
-        public List<double>? WindGusts { get; set; }
+        public List<double> WindGusts { get; set; } = new();
 
         [JsonPropertyName("wind_direction_10m")]
-        public List<int>? WindDirection { get; set; }
+        public List<int> WindDirection { get; set; } = new();
 
         [JsonPropertyName("snow_depth")]
-        public List<double>? SnowDepth { get; set; }
+        public List<double> SnowDepth { get; set; } = new();
 
         [JsonPropertyName("visibility")]
-        public List<double>? Visibility { get; set; }
+        public List<double> Visibility { get; set; } = new();
 
         [JsonPropertyName("cloud_cover")]
-        public List<int>? CloudCover { get; set; }
+        public List<int> CloudCover { get; set; } = new();
 
         [JsonPropertyName("surface_pressure")]
-        public List<double>? SurfacePressure { get; set; }
+        public List<double> SurfacePressure { get; set; } = new();
 
         [JsonPropertyName("freezing_level_height")]
-        public List<double>? FreezingLevelHeight { get; set; }
+        public List<double> FreezingLevelHeight { get; set; } = new();
     }
 }

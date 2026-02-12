@@ -30,20 +30,22 @@ namespace wetter.Views
         {
             _vm = new WetterViewModel();
 
-            initial();
-
-
             this.InitializeComponent();
             DataContext = _vm;
+
+            Loaded += async (sender, args) => 
+            {
+                await _vm.Initialize();
+            };
         }
 
-        private void initial()
-        {
-            Task task = new Task(async () => await _vm.Initialize());
+        //private void initial()
+        //{
+        //    Task task = new Task(async () => await _vm.Initialize());
 
-            task.RunSynchronously();
+        //    task.RunSynchronously();
 
-            Task.WaitAny(task);
-        }
+        //    Task.WaitAny(task);
+        //}
     }
 }

@@ -31,10 +31,10 @@ namespace wetter.Models.WetterModels
         public int UtcOffsetSeconds { get; set; }
 
         [JsonPropertyName("timezone")]
-        public string? Timezone { get; set; }
+        public string Timezone { get; set; } = string.Empty;
 
         [JsonPropertyName("timezone_abbreviation")]
-        public string? TimezoneAbbreviation { get; set; }
+        public string TimezoneAbbreviation { get; set; } = string.Empty;
 
         [JsonPropertyName("elevation")]
         public double Elevation { get; set; }

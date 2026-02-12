@@ -173,7 +173,7 @@ namespace wetter.Services
             try
             {
                 string hourly =
-                    "temperature_2m,apparent_temperature,precipitation_probability,precipitation,rain,snowfall,weather_code,wind_speed_10m," +
+                    "uv_index,temperature_2m,apparent_temperature,precipitation_probability,precipitation,rain,snowfall,weather_code,wind_speed_10m," +
                     "wind_gusts_10m,wind_direction_10m,snow_depth,visibility,cloud_cover,surface_pressure,freezing_level_height";
 
                 var url =

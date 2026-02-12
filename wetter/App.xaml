@@ -44,8 +44,15 @@
 
             <Style x:Key="GridStyle" TargetType="Grid">
                 <Setter Property="ColumnSpacing" Value="25" />
+                <Setter Property="RowSpacing" Value="25" />
                 <Setter Property="Padding" Value="15"/>
                 <!--<Setter Property="RowSpacing" Value="15" />-->
+            </Style>
+            <Style x:Key="TabViewStyle" TargetType="TabViewItem">
+                <Setter Property="IsClosable" Value="False"/>
+                <!--<Setter Property="CornerRadius" Value="25"/>-->
+                <Setter Property="Padding" Value="14,6"/>
+                <Setter Property="Margin" Value="8,0,0,0"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

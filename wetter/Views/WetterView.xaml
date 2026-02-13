@@ -8,52 +8,39 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:smallWeatherModel="using:wetter.Models.ListModels"
     xmlns:lvc="using:LiveChartsCore.SkiaSharpView.WinUI"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Style="{StaticResource PageStyle}">
 
-    <Page.Background>
-        <!--<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#FF1F487E" Offset="0.0"/>
-            <GradientStop Color="#FF14223F" Offset="0.65"/>
-            <GradientStop Color="#FF323C56" Offset="1.0"/>
-        </LinearGradientBrush>-->
-        <SolidColorBrush Color="#181820" />
-    </Page.Background>
-
-    <ScrollView ContentOrientation="Vertical" 
-                ZoomMode="Disabled"
-                IsTabStop="True"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Left"
-                HorizontalScrollMode="Disabled"
-                HorizontalScrollBarVisibility="Hidden"
-                VerticalScrollMode="Disabled"
-                VerticalScrollBarVisibility="Hidden">
-
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  VerticalScrollMode="Enabled"
+                  HorizontalScrollBarVisibility="Disabled"
+                  HorizontalScrollMode="Disabled">
         <!--Haupt Page-->
-        <Grid Style="{StaticResource GridStyle}">
-
+        <Grid x:Name="HauptGrid" Style="{StaticResource GridStyle}" 
+               VerticalAlignment="Top">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
+                <RowDefinition x:Name="R0" Height="Auto"/>
+                <RowDefinition x:Name="R1" Height="Auto"/>
+                <RowDefinition x:Name="R2" Height="0"/>
+                <RowDefinition x:Name="R3" Height="0"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.7*" />
-                <ColumnDefinition Width="0.3*" />
+                <ColumnDefinition x:Name="C0" Width="0.7*"/>
+                <ColumnDefinition x:Name="C1" Width="0.3*"/>
             </Grid.ColumnDefinitions>
 
             <!--Das Wetter Heute. Position oben Links-->
-            <Border Style="{StaticResource CardBorderStyle}"
+            <Border x:Name="BHeute" Style="{StaticResource CardBorderStyle}"
                     Translation="0,0,64"
                     Grid.Column="0"
-                    Grid.Row="0">
+                    Grid.Row="0"
+                    MinWidth="660">
                 <Border.Shadow>
                     <ThemeShadow x:Name="CardShadow" />
                 </Border.Shadow>
 
-                <Grid Grid.Row="0"
-                      Grid.Column="0">
-
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
@@ -130,7 +117,7 @@
                               SelectionMode="None">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" Spacing="5" />
+                                <StackPanel Orientation="Horizontal" Spacing="0" />
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
 
@@ -138,13 +125,16 @@
                             <DataTemplate x:DataType="smallWeatherModel:SmallWeatherModel">
                                 <Border CornerRadius="12" Padding="10" Background="#0E1623">
                                     <StackPanel Spacing="5">
-                                        <TextBlock Text="{x:Bind Zeit}" HorizontalTextAlignment="Center" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind Zeit}" HorizontalTextAlignment="Center" 
+                                                   HorizontalAlignment="Center"/>
                                         <Image Width="32" Height="32">
                                             <Image.Source>
                                                 <BitmapImage UriSource="{x:Bind WeatherCodeImagePath}" />
                                             </Image.Source>
                                         </Image>
-                                        <TextBlock Text="{x:Bind WeatherTemperatur}" HorizontalTextAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock Text="{x:Bind WeatherTemperatur}" 
+                                                   HorizontalTextAlignment="Center" 
+                                                   HorizontalAlignment="Center" />
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
@@ -154,7 +144,7 @@
             </Border>
 
             <!--Positionsinformation-->
-            <Border Style="{StaticResource CardBorderStyle}"
+            <Border x:Name="BPosition" Style="{StaticResource CardBorderStyle}"
                     Translation="0,0,64"
                     Grid.Column="1"
                     Grid.Row="0">
@@ -162,7 +152,7 @@
                     <ThemeShadow x:Name="CardShadowPosition" />
                 </Border.Shadow>
 
-                <Grid ColumnSpacing="15">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="auto" />
@@ -240,7 +230,7 @@
             </Border>
 
             <!--Diagramms-->
-            <Border Style="{StaticResource CardBorderStyle}"
+            <Border x:Name="BDiagramm" Style="{StaticResource CardBorderStyle}"
                     Translation="0,0,64"
                     Grid.Column="0"
                     Grid.Row="1">
@@ -252,7 +242,7 @@
                          IsAddTabButtonVisible="False"
                          CloseButtonOverlayMode="OnPointerOver">
                     <TabView.TabStripHeader>
-                        <TextBlock Text="Overview"
+                        <TextBlock Text="Überblick"
                                    FontSize="28"
                                    FontWeight="SemiBold"
                                    Margin="0,0,12,0"
@@ -264,7 +254,7 @@
                         <!-- Content für UV -->
                         <lvc:CartesianChart Series="{Binding UVIndex}" Height="260"/>
                     </TabViewItem>
-                    
+
                     <TabViewItem Style="{StaticResource TabViewStyle}" Header="Regen" IsClosable="False">
                         <!-- Content für Rainfall -->
                         <lvc:CartesianChart Series="{Binding RegenIndex}" Height="260"/>
@@ -278,19 +268,21 @@
             </Border>
 
             <!--Wetter für mehrere Tagen-->
-            <Border Style="{StaticResource CardBorderStyle}"
+            <Border x:Name="BTage" Style="{StaticResource CardBorderStyle}"
                     Translation="0,0,64"
                     Grid.Column="1"
-                    Grid.Row="1">
+                    Grid.Row="1"
+                    MinWidth="420">
                 <Border.Shadow>
                     <ThemeShadow x:Name="CardShadowTagesWetter" />
                 </Border.Shadow>
 
-                <Grid ColumnSpacing="15">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -299,11 +291,13 @@
                     <TextBlock Text="Das Wetter"
                                Style="{StaticResource TitelGross}"
                                Grid.Row="0"
-                               Grid.Column="0"/>
+                               Grid.Column="0"
+                               HorizontalAlignment="Left"/>
 
                     <ToggleSwitch AutomationProperties.Name="simple ToggleSwitch"
                                   Grid.Row="0"
                                   Grid.Column="1"
+                                  HorizontalAlignment="Right"
                                   OffContent="3 Tage"
                                   OnContent="7 Tage"
                                   IsOn="{Binding Is7Days, Mode=TwoWay}"/>
@@ -315,7 +309,7 @@
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollMode="Enabled"
                               ScrollViewer.VerticalScrollBarVisibility="Visible"
-                              SelectionMode="None">     
+                              SelectionMode="None">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical" Spacing="10" />
@@ -326,7 +320,7 @@
                             <DataTemplate x:DataType="smallWeatherModel:SmallWeatherModel">
                                 <Border CornerRadius="12" Padding="10" Background="#0E1623">
                                     <Grid RowSpacing="15"
-                                          ColumnSpacing="5">
+                                          ColumnSpacing="15">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
                                             <ColumnDefinition Width="auto" />
@@ -336,38 +330,38 @@
                                             <ColumnDefinition Width="auto" />
                                             <ColumnDefinition Width="auto" />
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <Image Source="{x:Bind WeatherCodeImagePath}" 
                                                Width="32" 
                                                Height="32"
                                                Grid.Column="0"/>
-                                        
+
                                         <TextBlock Text="{x:Bind MaxWeatherTemperatur}" 
                                                    HorizontalTextAlignment="Center" 
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
                                                    FontSize="16"
                                                    Grid.Column="1"/>
-                                        
+
                                         <TextBlock Text="{x:Bind MinWeatherTemperatur}" 
                                                    HorizontalTextAlignment="Center" 
                                                    HorizontalAlignment="Center" 
                                                    VerticalAlignment="Center"
                                                    FontSize="12"
                                                    Grid.Column="2"/>
-                                        
+
                                         <TextBlock Text="{x:Bind Datumg}" 
                                                    HorizontalTextAlignment="End"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
                                                    Grid.Column="4"/>
-                                        
+
                                         <TextBlock Text="{x:Bind Monat}" 
                                                    HorizontalTextAlignment="End" 
                                                    HorizontalAlignment="Center" 
                                                    VerticalAlignment="Center"
                                                    Grid.Column="5"/>
-                                        
+
                                         <TextBlock Text="{x:Bind Tag}" 
                                                    HorizontalTextAlignment="End" 
                                                    HorizontalAlignment="Center"
@@ -382,8 +376,81 @@
                 </Grid>
             </Border>
 
+            
         </Grid>
 
-    </ScrollView>
-   
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+
+                <!-- WIDE: 2 Spalten, 2 Reihen -->
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1300"/>
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <!-- Spalten -->
+                        <Setter Target="C0.Width" Value="0.7*"/>
+                        <Setter Target="C1.Width" Value="0.3*"/>
+
+                        <!-- nur 2 Reihen aktiv -->
+                        <Setter Target="R2.Height" Value="0"/>
+                        <Setter Target="R3.Height" Value="0"/>
+
+                        <!-- Positionen -->
+                        <Setter Target="BHeute.(Grid.Row)" Value="0"/>
+                        <Setter Target="BHeute.(Grid.Column)" Value="0"/>
+                        <Setter Target="BHeute.(Grid.ColumnSpan)" Value="1"/>
+
+                        <Setter Target="BPosition.(Grid.Row)" Value="0"/>
+                        <Setter Target="BPosition.(Grid.Column)" Value="1"/>
+                        <Setter Target="BPosition.(Grid.ColumnSpan)" Value="1"/>
+
+                        <Setter Target="BDiagramm.(Grid.Row)" Value="1"/>
+                        <Setter Target="BDiagramm.(Grid.Column)" Value="0"/>
+                        <Setter Target="BDiagramm.(Grid.ColumnSpan)" Value="1"/>
+
+                        <Setter Target="BTage.(Grid.Row)" Value="1"/>
+                        <Setter Target="BTage.(Grid.Column)" Value="1"/>
+                        <Setter Target="BTage.(Grid.ColumnSpan)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <!-- NARROW: alles untereinander, volle Breite -->
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <!-- 1 Spalte (2. Spalte auf 0) -->
+                        <Setter Target="C0.Width" Value="1*"/>
+                        <Setter Target="C1.Width" Value="0"/>
+
+                        <!-- 4 Reihen aktiv -->
+                        <Setter Target="R2.Height" Value="Auto"/>
+                        <Setter Target="R3.Height" Value="Auto"/>
+
+                        <!-- Alle Borders: Column=0 + untereinander -->
+                        <Setter Target="BHeute.(Grid.Row)" Value="0"/>
+                        <Setter Target="BHeute.(Grid.Column)" Value="0"/>
+                        <Setter Target="BHeute.(Grid.ColumnSpan)" Value="2"/>
+
+                        <Setter Target="BPosition.(Grid.Row)" Value="1"/>
+                        <Setter Target="BPosition.(Grid.Column)" Value="0"/>
+                        <Setter Target="BPosition.(Grid.ColumnSpan)" Value="2"/>
+
+                        <Setter Target="BDiagramm.(Grid.Row)" Value="2"/>
+                        <Setter Target="BDiagramm.(Grid.Column)" Value="0"/>
+                        <Setter Target="BDiagramm.(Grid.ColumnSpan)" Value="2"/>
+
+                        <Setter Target="BTage.(Grid.Row)" Value="3"/>
+                        <Setter Target="BTage.(Grid.Column)" Value="0"/>
+                        <Setter Target="BTage.(Grid.ColumnSpan)" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </ScrollViewer>
 </Page>

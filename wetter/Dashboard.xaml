@@ -21,7 +21,7 @@
 
         <!-- Title Bar -->
         <TitleBar x:Name="SimpleTitleBar"
-          Title="Planer">
+                  Title="Wetter App">
             <TitleBar.IconSource>
                 <FontIconSource Glyph="&#xF4AA;"/>
             </TitleBar.IconSource>

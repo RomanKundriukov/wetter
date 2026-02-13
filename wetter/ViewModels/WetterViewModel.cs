@@ -36,23 +36,23 @@ namespace wetter.ViewModels
         #endregion
 
         #region Commands
-        private RelayCommand? _toggledCommand;
+        //private RelayCommand? _toggledCommand;
 
-        public RelayCommand? ToggledCommand
-        {
-            get
-            {
-                return _toggledCommand
-                  ?? (_toggledCommand = new RelayCommand(
-                    async () =>
-                    {
-                        //if(ToggleSwitch.IsOnProperty == 3)
-                        //    await GetTaeglicWetherAsync(3);
-                        //else
-                            await GetTaeglicWetherAsync(7);
-                    }));
-            }
-        }
+        //public RelayCommand? ToggledCommand
+        //{
+        //    get
+        //    {
+        //        return _toggledCommand
+        //          ?? (_toggledCommand = new RelayCommand(
+        //            async () =>
+        //            {
+        //                //if(ToggleSwitch.IsOnProperty == 3)
+        //                //    await GetTaeglicWetherAsync(3);
+        //                //else
+        //                    await GetTaeglicWetherAsync(7);
+        //            }));
+        //    }
+        //}
         #endregion
 
         #region Initialise Service
@@ -65,7 +65,7 @@ namespace wetter.ViewModels
 
         #region Variablen
 
-        private Axis[] _xAxes { get; set; }
+        private Axis[] _xAxes { get; set; } = new Axis[0];
         public Axis[] XAxes 
         {
             get => _xAxes;
@@ -79,7 +79,7 @@ namespace wetter.ViewModels
                 }
             }
         }
-        private ISeries[] _uvIndex { get; set; }
+        private ISeries[] _uvIndex { get; set; } = new ISeries[0];
         public ISeries[] UVIndex
         {
             get => _uvIndex;
@@ -93,7 +93,7 @@ namespace wetter.ViewModels
             }
         }
 
-        private ISeries[] _schneeIndex { get; set; }
+        private ISeries[] _schneeIndex { get; set; } = new ISeries[0];
         public ISeries[] SchneeIndex
         {
             get => _schneeIndex;
@@ -107,7 +107,7 @@ namespace wetter.ViewModels
             }
         }
 
-        private ISeries[] _regenIndex { get; set; }
+        private ISeries[] _regenIndex { get; set; } = new ISeries[0];
         public ISeries[] RegenIndex
         {
             get => _regenIndex;
@@ -120,13 +120,6 @@ namespace wetter.ViewModels
                 }
             }
         }
-        //public ISeries[] UVIndex { get; set; } =
-        //{
-        //    new LineSeries<double>
-        //    {
-        //        Values = new double[] { 40, 35, 45, 55, 65 }
-        //    }
-        //};
 
         private bool _is7Days;
         public bool Is7Days
@@ -257,8 +250,8 @@ namespace wetter.ViewModels
             }
         }
 
-        private Uri _fotoPath;
-        public Uri FotoPath
+        private Uri? _fotoPath { get; set; }
+        public Uri? FotoPath
         {
             get => _fotoPath;
             set
@@ -420,16 +413,18 @@ namespace wetter.ViewModels
         
         public WetterViewModel() 
         {
+            ///initialisiere die Services
             _locationService = LocationServise.GetInstance();
             _weatherForecastService = WeatherForecastService.GetInstance();
             _weatherCodeService = WeatherCodeService.GetInstanse();
 
+            /// Initialisiere die Collections
             _weatherCodes = new Dictionary<int, WeatherCodeModel>();
             SmallWeatherModelsCollection = new ObservableCollection<SmallWeatherModel>();
             TaeglichWeatherModelsCollection = new ObservableCollection<SmallWeatherModel>();
         }
 
-        public async Task Initialize()
+        public async Task InitializeAsync()
         {
             _weatherCodes = await _weatherCodeService.GetWeatherCode();
 
@@ -467,6 +462,7 @@ namespace wetter.ViewModels
                 ActuelesTemeperatur = $"{currentWeather.CurrentWeather.Temperature} {currentWeather.CurrentUnits.Temperature}";
                 WindGesschwindigkeit = $"{currentWeather.CurrentWeather.WindSpeed} {currentWeather.CurrentUnits.WindSpeed}";
                 Feuchte = $"{currentWeather.CurrentWeather.RelativeHumidity} {currentWeather.CurrentUnits.RelativeHumidity}";
+                WindRichtung = currentWeather.CurrentWeather.WindDirection;
             }
 
             if(_weatherCodes is not null && currentWeather.CurrentWeather is not null)

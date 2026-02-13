@@ -32,7 +32,7 @@
 
             <!--Das Wetter Heute. Position oben Links-->
             <Border x:Name="BHeute" Style="{StaticResource CardBorderStyle}"
-                    Translation="0,0,64"
+                    Translation="0,0,33"
                     Grid.Column="0"
                     Grid.Row="0"
                     MinWidth="660">
@@ -58,6 +58,7 @@
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <Image Width="95" 
@@ -105,6 +106,30 @@
                                    Grid.Row="1"
                                    Grid.Column="4"/>
 
+                        <Border    Style="{StaticResource CardBorderStyle}"
+                                   Grid.Row="0"
+                                   Grid.Column="5"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Background="GhostWhite">
+
+                            <Image Width="45"
+                                   Height="45"
+                                   Source="ms-appx:///Assets/arrow.png"
+                                   RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <RotateTransform Angle="{Binding WindRichtung}" />
+                                </Image.RenderTransform>
+                            </Image>
+                        </Border>
+
+                        <TextBlock Text="Windrichtung"
+                                   Grid.Row="1"
+                                   Grid.Column="5"
+                                   TextAlignment="Right"
+                                   Style="{StaticResource TitelMittel}"/>
+
+
                     </Grid>
 
                     <!--Das Wetter Pro Stunde-->
@@ -145,17 +170,17 @@
 
             <!--Positionsinformation-->
             <Border x:Name="BPosition" Style="{StaticResource CardBorderStyle}"
-                    Translation="0,0,64"
+                    Translation="0,0,33"
                     Grid.Column="1"
                     Grid.Row="0">
                 <Border.Shadow>
                     <ThemeShadow x:Name="CardShadowPosition" />
                 </Border.Shadow>
 
-                <Grid>
+                <Grid VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -172,6 +197,7 @@
                                Grid.Column="0"/>
                     <TextBlock Text="{Binding Land}"
                                VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
                                Style="{StaticResource TitelMittel}"
                                Grid.Row="0"
                                Grid.Column="1"/>
@@ -182,6 +208,7 @@
                                Grid.Column="0"/>
                     <TextBlock Text="{Binding Stadt}"
                                VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
                                Style="{StaticResource TitelMittel}"
                                Grid.Row="1"
                                Grid.Column="1"/>
@@ -192,6 +219,7 @@
                                Grid.Column="0"/>
                     <TextBlock Text="{Binding PLZ}"
                                VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
                                Style="{StaticResource TitelMittel}"
                                Grid.Row="2"
                                Grid.Column="1"/>
@@ -202,6 +230,7 @@
                                Grid.Column="0"/>
                     <TextBlock Text="{Binding Vorort}"
                                VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
                                Style="{StaticResource TitelMittel}"
                                Grid.Row="3"
                                Grid.Column="1"/>
@@ -212,6 +241,7 @@
                                Grid.Column="0"/>
                     <TextBlock Text="{Binding Strasse}"
                                VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
                                Style="{StaticResource TitelMittel}"
                                Grid.Row="4"
                                Grid.Column="1"/>
@@ -222,6 +252,7 @@
                                Grid.Column="0"/>
                     <TextBlock Text="{Binding HausNummer}"
                                VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
                                Style="{StaticResource TitelMittel}"
                                Grid.Row="5"
                                Grid.Column="1"/>
@@ -231,7 +262,7 @@
 
             <!--Diagramms-->
             <Border x:Name="BDiagramm" Style="{StaticResource CardBorderStyle}"
-                    Translation="0,0,64"
+                    Translation="0,0,33"
                     Grid.Column="0"
                     Grid.Row="1">
                 <Border.Shadow>
@@ -269,7 +300,7 @@
 
             <!--Wetter für mehrere Tagen-->
             <Border x:Name="BTage" Style="{StaticResource CardBorderStyle}"
-                    Translation="0,0,64"
+                    Translation="0,0,33"
                     Grid.Column="1"
                     Grid.Row="1"
                     MinWidth="420">
@@ -277,7 +308,7 @@
                     <ThemeShadow x:Name="CardShadowTagesWetter" />
                 </Border.Shadow>
 
-                <Grid>
+                <Grid RowSpacing="15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />

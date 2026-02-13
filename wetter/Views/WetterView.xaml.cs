@@ -21,17 +21,9 @@ namespace wetter.Views
 
             Loaded += async (sender, args) => 
             {
-                await _vm.Initialize();
+                await _vm.InitializeAsync();
             };
         }
-
-        //private void initial()
-        //{
-        //    Task task = new Task(async () => await _vm.Initialize());
-
-        //    task.RunSynchronously();
-
-        //    Task.WaitAny(task);
-        //}
+      
     }
 }

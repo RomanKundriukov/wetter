@@ -507,7 +507,7 @@ namespace wetter.ViewModels
 
             if(_weatherCodes is not null && currentWeather.CurrentWeather is not null)
             {
-                int isDay = currentWeather.CurrentWeather.IsDay;
+                int isDay = (int)currentWeather.CurrentWeather.IsDay;
                 int code = currentWeather.CurrentWeather.WeatherCode;
                 
                 if(isDay == 1)

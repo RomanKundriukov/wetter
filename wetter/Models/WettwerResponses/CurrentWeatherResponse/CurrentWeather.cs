@@ -50,6 +50,6 @@ namespace wetter.Models.WettwerResponses.CurrentWeatherResponse
         public double WindGusts { get; set; }
 
         [JsonPropertyName("is_day")]
-        public int IsDay { get; set; }
+        public double IsDay { get; set; }
     }
 }

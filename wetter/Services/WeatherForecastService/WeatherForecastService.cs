@@ -44,6 +44,7 @@ namespace wetter.Services
             _httpClient.BaseAddress = new System.Uri("https://api.open-meteo.com/v1/forecast");
             _httpClient.Timeout = TimeSpan.FromSeconds(10);
         }
+
         /// <summary>
         /// Gets the singleton instance of the WeatherForecastService.
         /// </summary>

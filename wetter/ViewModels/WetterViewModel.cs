@@ -22,6 +22,14 @@ using wetter.Services.WeatherCode;
 
 namespace wetter.ViewModels
 {
+    /// <summary>
+    /// Represents the view model for weather data management, providing properties and methods to retrieve and display
+    /// weather information based on user location and preferences.
+    /// </summary>
+    /// <remarks>This class implements the INotifyPropertyChanged interface to support data binding in the
+    /// user interface. It manages weather-related properties and commands, and initializes services for location and
+    /// weather data retrieval. The view model facilitates the display of current and forecasted weather information,
+    /// enabling responsive updates to the UI as data changes.</remarks>
     internal class WetterViewModel : INotifyPropertyChanged
     {
         #region Notification Property Changed
@@ -410,7 +418,13 @@ namespace wetter.ViewModels
 
         #endregion
 
-        
+        /// <summary>
+        /// Initializes a new instance of the WetterViewModel class, setting up the required services and collections
+        /// for weather data management.
+        /// </summary>
+        /// <remarks>This constructor creates singleton instances of the location, weather forecast, and
+        /// weather code services. It also initializes observable collections for storing weather models, which are
+        /// intended for data binding in the user interface.</remarks>
         public WetterViewModel() 
         {
             ///initialisiere die Services
@@ -424,6 +438,14 @@ namespace wetter.ViewModels
             TaeglichWeatherModelsCollection = new ObservableCollection<SmallWeatherModel>();
         }
 
+        /// <summary>
+        /// Initializes the application asynchronously by retrieving weather codes, location information, and weather
+        /// data.
+        /// </summary>
+        /// <remarks>This method performs multiple asynchronous operations to gather necessary data for
+        /// the application, including fetching weather codes and current weather information based on the user's
+        /// location.</remarks>
+        /// <returns>This method does not return a value.</returns>
         public async Task InitializeAsync()
         {
             _weatherCodes = await _weatherCodeService.GetWeatherCode();
@@ -437,8 +459,25 @@ namespace wetter.ViewModels
 
 
         }
+
+        /// <summary>
+        /// Asynchronously updates the current location coordinates using the location service.
+        /// </summary>
+        /// <remarks>This method performs an asynchronous operation to refresh the location data. Ensure
+        /// that the location service is properly initialized before calling this method.</remarks>
+        /// <returns></returns>
         private async Task GetKoordinaten() => await _locationService.UpdateLocationAsync();
 
+        /// <summary>
+        /// Asynchronously retrieves address information for the specified geographic coordinates and updates related
+        /// properties with the results.
+        /// </summary>
+        /// <remarks>If address information is successfully retrieved, the properties Land, Stadt, PLZ,
+        /// Vorort, Strasse, and HausNummer are updated with the corresponding details. If no information is found,
+        /// these properties are set to empty strings.</remarks>
+        /// <param name="latitude">The latitude component of the location to query. Must be a valid coordinate value.</param>
+        /// <param name="longitude">The longitude component of the location to query. Must be a valid coordinate value.</param>
+        /// <returns>A task that represents the asynchronous operation. The method does not return a value.</returns>
         private async Task GetLocationInfoAsync(double latitude, double longitude)
         {
            var location =  await _locationService.GetLocationInfoAsync(latitude: latitude, longitude: longitude);
@@ -454,6 +493,15 @@ namespace wetter.ViewModels
             }
         }
 
+        /// <summary>
+        /// Asynchronously retrieves the current weather information for the specified location and updates the relevant
+        /// properties with the retrieved data.
+        /// </summary>
+        /// <remarks>This method fetches the current weather data using the provided latitude and
+        /// longitude. It updates properties such as temperature, wind speed, humidity, and weather description based on
+        /// whether it is day or night. Ensure that the location service is properly initialized before calling this
+        /// method.</remarks>
+        /// <returns></returns>
         private async Task GetCurrentWetherAsync()
         {
             var currentWeather = await _weatherForecastService.GetCurrentWeatherAsync(days: 1, latitude:_locationService.Latitude, longitude: _locationService.Longitude, timezone:"Europe/Berlin");
@@ -483,6 +531,16 @@ namespace wetter.ViewModels
             }
         }
 
+        /// <summary>
+        /// Asynchronously retrieves hourly and daily weather data for the current location and updates the collection
+        /// of small weather models with temperature and weather code information.
+        /// </summary>
+        /// <remarks>This method fetches weather data for one day using the configured latitude,
+        /// longitude, and timezone. It ensures that both hourly and daily weather data, including sunrise and sunset
+        /// times, are available before processing. The method populates the collection with weather models, selecting
+        /// the appropriate weather code image based on the time of day.</remarks>
+        /// <returns>A task that represents the asynchronous operation. The task completes when the weather data has been
+        /// retrieved and the collection has been updated.</returns>
         private async Task GetHourlyWetherAsync()
         {
 
@@ -520,6 +578,15 @@ namespace wetter.ViewModels
 
         }
 
+        /// <summary>
+        /// Asynchronously retrieves daily weather data for a specified number of days and populates the collection with
+        /// weather models.
+        /// </summary>
+        /// <remarks>This method clears the existing weather models collection before fetching new data.
+        /// It requires valid latitude and longitude values from the location service. The method does not execute if
+        /// sunrise or sunset data is unavailable.</remarks>
+        /// <param name="days">The number of days for which to retrieve the weather data. Defaults to 3 days if not specified.</param>
+        /// <returns></returns>
         private async Task GetTaeglicWetherAsync(int days = 3)
         {
             TaeglichWeatherModelsCollection.Clear();
@@ -557,6 +624,14 @@ namespace wetter.ViewModels
 
         }
 
+        /// <summary>
+        /// Asynchronously updates diagram series for hourly weather data, including UV index, snowfall, and
+        /// precipitation, based on the current location.
+        /// </summary>
+        /// <remarks>This method retrieves hourly weather data for the current location and updates the
+        /// corresponding diagram series. The latitude and longitude must be set in the location service prior to
+        /// calling this method. If hourly weather data is unavailable, no updates are performed.</remarks>
+        /// <returns></returns>
         private async Task SetDiagramms()
         {
 

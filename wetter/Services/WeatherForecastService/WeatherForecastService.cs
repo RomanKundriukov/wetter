@@ -1,13 +1,7 @@
-﻿using ABI.System;
-using Microsoft.UI.Xaml.Media.Animation;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using wetter.Models.WetterModels;
 using Exception = System.Exception;

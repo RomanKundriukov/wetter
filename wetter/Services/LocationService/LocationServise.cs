@@ -1,17 +1,11 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Animation;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using wetter.Models.LocationsModel;
-using wetter.Models.WetterModels;
 using Windows.Devices.Geolocation;
 
 namespace wetter.Services.LocationService

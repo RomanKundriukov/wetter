@@ -6,6 +6,15 @@
     <AppxShowAllApps>False</AppxShowAllApps>
     <AppxBuildConfigurationSelection>x64</AppxBuildConfigurationSelection>
     <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+    <Source>C:\Roman\Git\wetter\wetter\Assets\wetter.png</Source>
+    <SmallTileSource>C:\Roman\Git\wetter\wetter\Assets\wetter.png</SmallTileSource>
+    <MediumTileSource>C:\Roman\Git\wetter\wetter\Assets\wetter.png</MediumTileSource>
+    <WideTileSource>C:\Roman\Git\wetter\wetter\Assets\wetter.png</WideTileSource>
+    <LargeTileSource>C:\Roman\Git\wetter\wetter\Assets\wetter.png</LargeTileSource>
+    <AppIconSource>C:\Roman\Git\wetter\wetter\Assets\wetter.png</AppIconSource>
+    <SplashScreenSource>C:\Roman\Git\wetter\wetter\Assets\wetter.png</SplashScreenSource>
+    <PackageLogoSource>C:\Roman\Git\wetter\wetter\Assets\wetter.png</PackageLogoSource>
+    <BadgeLogoSource>C:\Roman\Git\wetter\wetter\Assets\wetter.png</BadgeLogoSource>
   </PropertyGroup>
   <ItemGroup>
     <None Update="App.xaml">

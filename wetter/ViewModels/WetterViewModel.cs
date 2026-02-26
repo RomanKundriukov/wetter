@@ -1,24 +1,16 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using LiveChartsCore;
+﻿using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
-using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using wetter.Models.ListModels;
-using wetter.Models.LocationsModel;
 using wetter.Models.WeatherCode;
-using wetter.Models.WetterModels;
 using wetter.Services;
-using wetter.Services.FileReader;
 using wetter.Services.LocationService;
-using wetter.Services.WeatherCode; 
+using wetter.Services.WeatherCode;
 
 namespace wetter.ViewModels
 {

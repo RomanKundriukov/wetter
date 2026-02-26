@@ -14,8 +14,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="Assets\BadgeLogo.scale-100.png" />
+    <Content Remove="Assets\BadgeLogo.scale-125.png" />
+    <Content Remove="Assets\BadgeLogo.scale-150.png" />
+    <Content Remove="Assets\BadgeLogo.scale-200.png" />
+    <Content Remove="Assets\BadgeLogo.scale-400.png" />
+    <Content Remove="Assets\wetter.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Assets\arrow.png" />
-    <None Remove="Assets\reload.png" />
     <None Remove="Views\SettingView.xaml" />
     <None Remove="Views\WetterView.xaml" />
   </ItemGroup>
@@ -26,7 +33,6 @@
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
 
@@ -43,11 +49,9 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="CommunityToolkit.WinUI.Media" Version="8.2.251219" />
     <PackageReference Include="CSharpMarkup.WinUI.LiveChartsCore.SkiaSharpView" Version="3.1.2" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7705" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260209005" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Jsons\description.json">

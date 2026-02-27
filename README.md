@@ -20,3 +20,18 @@ Eine moderne Windows-Wetter-App als Schulprojekt: **Wetterübersicht basierend a
 ## 🖼️ Screenshots
 
 <img width="1532" height="842" alt="App Design" src="https://github.com/user-attachments/assets/3dc48608-b66c-40ad-8905-dffa9cb15a19" />
+
+---
+
+## 🧰 Tech-Stack
+
+- **C# / .NET 10**
+- **WinUI 3 (Windows App SDK)**
+- **XAML für UI**
+- **MVVM**
+
+---
+
+
+
+UI/UX-Optimierung oder Refactoring

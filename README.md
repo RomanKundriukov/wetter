@@ -19,8 +19,4 @@ Eine moderne Windows-Wetter-App als Schulprojekt: **Wetterübersicht basierend a
 
 ## 🖼️ Screenshots
 
-> Lege deine Screenshots z. B. im Ordner `docs/screenshots/` ab und verlinke sie hier.
-
-Beispiel:
-```md
-![[https://github.com/user-attachments/assets/798ff2f5-ac0a-4d73-a027-4b716ad717b8]]
+<img width="1532" height="842" alt="App Design" src="https://github.com/user-attachments/assets/3dc48608-b66c-40ad-8905-dffa9cb15a19" />

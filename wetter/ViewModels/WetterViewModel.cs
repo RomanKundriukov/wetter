@@ -7,7 +7,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using wetter.Models.ListModels;
+using wetter.Models.LocationsModel;
 using wetter.Models.WeatherCode;
+using wetter.Models.WetterModels;
+using wetter.Models.WettwerResponses.CurrentWeatherResponse;
 using wetter.Services;
 using wetter.Services.LocationService;
 using wetter.Services.WeatherCode;
@@ -132,7 +135,7 @@ namespace wetter.ViewModels
                 OnPropertyChanged(nameof(Is7Days));
 
                 int days = _is7Days ? 7 : 3;
-                _ = GetTaeglicWetherAsync(days); // async starten
+                _ = SetTaeglicWetherAsync(days); // async starten
             }
         }
 
@@ -408,6 +411,10 @@ namespace wetter.ViewModels
         public ObservableCollection<SmallWeatherModel> SmallWeatherModelsCollection;
         public ObservableCollection<SmallWeatherModel> TaeglichWeatherModelsCollection;
 
+        private LocationModel _location;
+        private CurrentWeatherModel _currentWetter;
+        private HourlyWeatherModel _hourlyWetter;
+        private DailyWeatherModel _dailyWetter;
         #endregion
 
         /// <summary>
@@ -428,6 +435,12 @@ namespace wetter.ViewModels
             _weatherCodes = new Dictionary<int, WeatherCodeModel>();
             SmallWeatherModelsCollection = new ObservableCollection<SmallWeatherModel>();
             TaeglichWeatherModelsCollection = new ObservableCollection<SmallWeatherModel>();
+
+            /// Initialisiere die Models
+            _location = new();
+            _currentWetter = new();
+            _hourlyWetter = new();
+            _dailyWetter = new();
         }
 
         /// <summary>
@@ -438,18 +451,23 @@ namespace wetter.ViewModels
         /// the application, including fetching weather codes and current weather information based on the user's
         /// location.</remarks>
         /// <returns>This method does not return a value.</returns>
-        public async Task InitializeAsync()
+        public async Task GetDatenVonApiAsync()
         {
-            _weatherCodes = await _weatherCodeService.GetWeatherCode();
-
             await GetKoordinaten();
-            await GetLocationInfoAsync(_locationService.Latitude, _locationService.Longitude);
-            await GetCurrentWetherAsync();
-            await GetHourlyWetherAsync();
-            await GetTaeglicWetherAsync();
+            _weatherCodes = await _weatherCodeService.GetWeatherCode();
+            _location = await _locationService.GetLocationInfoAsync(latitude: _locationService.Latitude, longitude: _locationService.Longitude);
+            _currentWetter = await _weatherForecastService.GetCurrentWeatherAsync(days: 1, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
+            _hourlyWetter = await _weatherForecastService.GetHourlyWeatherAsync(days: 1, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
+            _dailyWetter = await _weatherForecastService.GetDailyWeatherAsync(days: 1, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
+        }
+
+        public async Task InitialisiereAsync()
+        {
+            await SetLocationInfoAsync(_locationService.Latitude, _locationService.Longitude);
+            await SetCurrentWetherAsync();
+            await SetHourlyWetherAsync();
+            await SetTaeglicWetherAsync();
             await SetDiagramms();
-
-
         }
 
         /// <summary>
@@ -470,18 +488,18 @@ namespace wetter.ViewModels
         /// <param name="latitude">The latitude component of the location to query. Must be a valid coordinate value.</param>
         /// <param name="longitude">The longitude component of the location to query. Must be a valid coordinate value.</param>
         /// <returns>A task that represents the asynchronous operation. The method does not return a value.</returns>
-        private async Task GetLocationInfoAsync(double latitude, double longitude)
+        private async Task SetLocationInfoAsync(double latitude, double longitude)
         {
-           var location =  await _locationService.GetLocationInfoAsync(latitude: latitude, longitude: longitude);
+           //var location =  await _locationService.GetLocationInfoAsync(latitude: latitude, longitude: longitude);
 
-            if(location is not null)
+            if(_location is not null)
             {
-                Land = location.Address.Country ?? string.Empty;
-                Stadt = location.Address.Town ?? string.Empty;
-                PLZ = location.Address.Postcode ?? string.Empty;
-                Vorort = location.Address.Village ?? string.Empty;
-                Strasse = location.Address.Road ?? string.Empty;
-                HausNummer = location.Address.HouseNumber ?? string.Empty;
+                Land = _location.Address.Country ?? string.Empty;
+                Stadt = _location.Address.Town ?? string.Empty;
+                PLZ = _location.Address.Postcode ?? string.Empty;
+                Vorort = _location.Address.Village ?? string.Empty;
+                Strasse = _location.Address.Road ?? string.Empty;
+                HausNummer = _location.Address.HouseNumber ?? string.Empty;
             }
         }
 
@@ -494,21 +512,21 @@ namespace wetter.ViewModels
         /// whether it is day or night. Ensure that the location service is properly initialized before calling this
         /// method.</remarks>
         /// <returns></returns>
-        private async Task GetCurrentWetherAsync()
+        private async Task SetCurrentWetherAsync()
         {
-            var currentWeather = await _weatherForecastService.GetCurrentWeatherAsync(days: 1, latitude:_locationService.Latitude, longitude: _locationService.Longitude, timezone:"Europe/Berlin");
-            if(currentWeather.CurrentWeather is not null)
+            //var currentWeather = await _weatherForecastService.GetCurrentWeatherAsync(days: 1, latitude:_locationService.Latitude, longitude: _locationService.Longitude, timezone:"Europe/Berlin");
+            if(_currentWetter.CurrentWeather is not null)
             {
-                ActuelesTemeperatur = $"{currentWeather.CurrentWeather.Temperature} {currentWeather.CurrentUnits.Temperature}";
-                WindGesschwindigkeit = $"{currentWeather.CurrentWeather.WindSpeed} {currentWeather.CurrentUnits.WindSpeed}";
-                Feuchte = $"{currentWeather.CurrentWeather.RelativeHumidity} {currentWeather.CurrentUnits.RelativeHumidity}";
-                WindRichtung = currentWeather.CurrentWeather.WindDirection;
+                ActuelesTemeperatur = $"{_currentWetter.CurrentWeather.Temperature} {_currentWetter.CurrentUnits.Temperature}";
+                WindGesschwindigkeit = $"{_currentWetter.CurrentWeather.WindSpeed} {_currentWetter.CurrentUnits.WindSpeed}";
+                Feuchte = $"{_currentWetter.CurrentWeather.RelativeHumidity} {_currentWetter.CurrentUnits.RelativeHumidity}";
+                WindRichtung = _currentWetter.CurrentWeather.WindDirection;
             }
 
-            if(_weatherCodes is not null && currentWeather.CurrentWeather is not null)
+            if(_weatherCodes is not null && _currentWetter.CurrentWeather is not null)
             {
-                int isDay = (int)currentWeather.CurrentWeather.IsDay;
-                int code = currentWeather.CurrentWeather.WeatherCode;
+                int isDay = (int)_currentWetter.CurrentWeather.IsDay;
+                int code = _currentWetter.CurrentWeather.WeatherCode;
                 
                 if(isDay == 1)
                 {
@@ -533,36 +551,36 @@ namespace wetter.ViewModels
         /// the appropriate weather code image based on the time of day.</remarks>
         /// <returns>A task that represents the asynchronous operation. The task completes when the weather data has been
         /// retrieved and the collection has been updated.</returns>
-        private async Task GetHourlyWetherAsync()
+        private async Task SetHourlyWetherAsync()
         {
 
-            var hourlyWeather = await _weatherForecastService.GetHourlyWeatherAsync(days: 1, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
-            var dailyWeather = await _weatherForecastService.GetDailyWeatherAsync(days: 1, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
+            //var hourlyWeather = await _weatherForecastService.GetHourlyWeatherAsync(days: 1, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
+            //var dailyWeather = await _weatherForecastService.GetDailyWeatherAsync(days: 1, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
 
-            if (hourlyWeather.HourlyWeather is null || dailyWeather.DailyWeather is null)
+            if (_hourlyWetter.HourlyWeather is null || _dailyWetter.DailyWeather is null)
                 return;
-            if (dailyWeather.DailyWeather.Sunrise is null || dailyWeather.DailyWeather.Sunset is null)
+            if (_dailyWetter.DailyWeather.Sunrise is null || _dailyWetter.DailyWeather.Sunset is null)
                 return;
             
-            TimeOnly sonneAufgang = TimeOnly.FromDateTime(dailyWeather.DailyWeather.Sunrise.FirstOrDefault());
-            TimeOnly sonneUntergang = TimeOnly.FromDateTime(dailyWeather.DailyWeather.Sunset.FirstOrDefault());
+            TimeOnly sonneAufgang = TimeOnly.FromDateTime(_dailyWetter.DailyWeather.Sunrise.FirstOrDefault());
+            TimeOnly sonneUntergang = TimeOnly.FromDateTime(_dailyWetter.DailyWeather.Sunset.FirstOrDefault());
 
-            for (int i = 0; i < hourlyWeather.HourlyWeather.Temperature?.Count; i++)
+            for (int i = 0; i < _hourlyWetter.HourlyWeather.Temperature?.Count; i++)
             {
-                if(hourlyWeather.HourlyWeather is null)
+                if(_hourlyWetter.HourlyWeather is null)
                     return;
 
-                TimeOnly actTime = TimeOnly.FromDateTime(hourlyWeather.HourlyWeather.Time[i]);
-                if(hourlyWeather.HourlyWeather.WeatherCode is null)
+                TimeOnly actTime = TimeOnly.FromDateTime(_hourlyWetter.HourlyWeather.Time[i]);
+                if(_hourlyWetter.HourlyWeather.WeatherCode is null)
                     return;
 
-                int code = hourlyWeather.HourlyWeather.WeatherCode[i];
+                int code = _hourlyWetter.HourlyWeather.WeatherCode[i];
 
                 SmallWeatherModelsCollection.Add(new SmallWeatherModel
                 {
-                    Zeit = TimeOnly.FromDateTime(hourlyWeather.HourlyWeather.Time[i]),
+                    Zeit = TimeOnly.FromDateTime(_hourlyWetter.HourlyWeather.Time[i]),
 
-                    WeatherTemperatur = hourlyWeather.HourlyWeather.Temperature[i],
+                    WeatherTemperatur = _hourlyWetter.HourlyWeather.Temperature[i],
 
                     WeatherCodeImagePath = (actTime > sonneUntergang && actTime < sonneUntergang) ? _weatherCodes[code].Day.Image : _weatherCodes[code].Night.Image
                 });
@@ -579,7 +597,7 @@ namespace wetter.ViewModels
         /// sunrise or sunset data is unavailable.</remarks>
         /// <param name="days">The number of days for which to retrieve the weather data. Defaults to 3 days if not specified.</param>
         /// <returns></returns>
-        private async Task GetTaeglicWetherAsync(int days = 3)
+        private async Task SetTaeglicWetherAsync(int days = 3)
         {
             TaeglichWeatherModelsCollection.Clear();
 
@@ -628,21 +646,21 @@ namespace wetter.ViewModels
         {
 
             //var dailyWeather = await _weatherForecastService.GetHourlyWeatherAsync(days: days, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
-            var hourlyWeather = await _weatherForecastService.GetHourlyWeatherAsync(days: 1, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
+            //var hourlyWeather = await _weatherForecastService.GetHourlyWeatherAsync(days: 1, latitude: _locationService.Latitude, longitude: _locationService.Longitude, timezone: "Europe/Berlin");
 
-            if (hourlyWeather.HourlyWeather is null)
+            if (_hourlyWetter.HourlyWeather is null)
                 return;
 
           
-            for (int i = 0; i < hourlyWeather.HourlyWeather.Time?.Count; i++)
+            for (int i = 0; i < _hourlyWetter.HourlyWeather.Time?.Count; i++)
             {
 
-                TimeSpan stunden = TimeSpan.FromHours(hourlyWeather.HourlyWeather.Time[i].Hour);
+                TimeSpan stunden = TimeSpan.FromHours(_hourlyWetter.HourlyWeather.Time[i].Hour);
                 XAxes = new Axis[]
                 {
                     new Axis
                     {
-                        Labels = hourlyWeather.HourlyWeather.Time.Select(t => TimeOnly.FromDateTime(t).ToString("HH:mm")).ToArray()
+                        Labels = _hourlyWetter.HourlyWeather.Time.Select(t => TimeOnly.FromDateTime(t).ToString("HH:mm")).ToArray()
                     }
                 };
 
@@ -650,7 +668,7 @@ namespace wetter.ViewModels
                 {
                     new LineSeries<double>
                     {
-                        Values = hourlyWeather.HourlyWeather.UVIndex.Select(u => (double)u).ToArray()
+                        Values = _hourlyWetter.HourlyWeather.UVIndex.Select(u => (double)u).ToArray()
                     }
                 };
 
@@ -658,7 +676,7 @@ namespace wetter.ViewModels
                 {
                     new LineSeries<double>
                     {
-                        Values = hourlyWeather.HourlyWeather.Snowfall.Select(s => (double)s).ToArray()
+                        Values = _hourlyWetter.HourlyWeather.Snowfall.Select(s => (double)s).ToArray()
                     }
                 };
 
@@ -666,7 +684,7 @@ namespace wetter.ViewModels
                 {
                     new LineSeries<double>
                     {
-                        Values = hourlyWeather.HourlyWeather.Precipitation.Select(p => (double)p).ToArray()
+                        Values = _hourlyWetter.HourlyWeather.Precipitation.Select(p => (double)p).ToArray()
                     }
                 };
             }

@@ -31,7 +31,3 @@ Eine moderne Windows-Wetter-App als Schulprojekt: **Wetterübersicht basierend a
 - **MVVM**
 
 ---
-
-
-
-UI/UX-Optimierung oder Refactoring

@@ -1,5 +1,4 @@
 using Microsoft.UI.Xaml.Controls;
-using System.Threading.Tasks;
 using wetter.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -20,18 +19,10 @@ namespace wetter.Views
             this.InitializeComponent();
             DataContext = _vm;
 
-            Loading += async (sender, args) => 
+            Loaded += async (sender, args) => 
             {
-               // await _vm.GetDatenVonApiAsync();
-
-                Task.WaitAny(_vm.GetDatenVonApiAsync());
+                await _vm.InitializeAsync();
             };
-
-            Loaded += async (sender, args) =>
-            {
-                await _vm.InitialisiereAsync();
-            };
-
         }
       
        

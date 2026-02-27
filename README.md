@@ -23,4 +23,4 @@ Eine moderne Windows-Wetter-App als Schulprojekt: **Wetterübersicht basierend a
 
 Beispiel:
 ```md
-<img width="1532" height="842" alt="App Design" src="https://github.com/user-attachments/assets/798ff2f5-ac0a-4d73-a027-4b716ad717b8" />
+![[https://github.com/user-attachments/assets/798ff2f5-ac0a-4d73-a027-4b716ad717b8]]
